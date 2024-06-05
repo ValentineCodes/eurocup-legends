@@ -1,2 +1,0 @@
-@openzeppelin/contracts/=node_modules/@openzeppelin/contracts
-@lukso/lsp-smart-contracts/=node_modules/@lukso/lsp-smart-contracts
