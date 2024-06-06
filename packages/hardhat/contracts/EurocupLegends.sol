@@ -23,15 +23,10 @@ contract EurocupLegends is IEurocupLegends, Ownable {
         }
     }
 
-    function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _share) external onlyOwner {
-        uint256 winnersLength = s_winners.length;
-        uint256 totalPrize = address(this).balance;
-
-        if(winnersLength != MAX_WINNERS) revert NoWinnersYet();
-
+    function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _shares) external onlyOwner {
         for(uint256 i; i < MAX_WINNERS; i++) {
             address winner = _winners[i];
-            uint256 prize = (totalPrize * _share[i]) / SHARE_PRECISION;
+            uint256 prize = (address(this).balance * _shares[i]) / SHARE_PRECISION;
 
             s_winners[i] = winner;
             s_prizes[winner] = prize;
@@ -41,6 +36,7 @@ contract EurocupLegends is IEurocupLegends, Ownable {
     }
 
     function claimPrize(address _ticket) external {
+        if(s_winners.length != MAX_WINNERS) revert NoWinnersYet();
         if(_ticket == address(0)) revert ZeroAddress();
         if(s_prizes[_ticket] == 0) revert NoPrizeForThisTicket();
         if(s_isClaimed[msg.sender][_ticket]) revert AlreadyClaimedPrize();
