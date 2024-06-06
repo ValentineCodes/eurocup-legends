@@ -82,6 +82,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ITickets__factory>;
     getContractFactory(
+      name: "BPunX",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BPunX__factory>;
+    getContractFactory(
+      name: "UPMock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UPMock__factory>;
+    getContractFactory(
       name: "Tickets",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Tickets__factory>;
@@ -172,6 +180,16 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ITickets>;
     getContractAt(
+      name: "BPunX",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BPunX>;
+    getContractAt(
+      name: "UPMock",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UPMock>;
+    getContractAt(
       name: "Tickets",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -246,6 +264,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITickets>;
     deployContract(
+      name: "BPunX",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BPunX>;
+    deployContract(
+      name: "UPMock",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UPMock>;
+    deployContract(
       name: "Tickets",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Tickets>;
@@ -335,6 +361,16 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITickets>;
+    deployContract(
+      name: "BPunX",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BPunX>;
+    deployContract(
+      name: "UPMock",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UPMock>;
     deployContract(
       name: "Tickets",
       args: any[],

@@ -1476,6 +1476,225 @@
         "^0.8.4"
       ],
       "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/LSP1Constants.sol": {
+      "lastModificationDate": 1717588903601,
+      "contentHash": "61405fd20271ab76fe1fdc6d6568dd14",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/LSP1Constants.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp1-contracts/contracts/LSP1Constants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/mocks/UPMock.sol": {
+      "lastModificationDate": 1717689974337,
+      "contentHash": "413c968f1358834e2b3b511d69864170",
+      "sourceName": "contracts/mocks/UPMock.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/ILSP1UniversalReceiver.sol",
+        "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+        "@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/LSP1Constants.sol",
+        "@lukso/lsp-smart-contracts/contracts/LSP0ERC725Account/LSP0Constants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "BPunX",
+        "UPMock"
+      ]
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/ILSP1UniversalReceiver.sol": {
+      "lastModificationDate": 1717588903599,
+      "contentHash": "9429e2a512ba455e3d678611bc74b225",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/ILSP1UniversalReceiver.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp1-contracts/contracts/ILSP1UniversalReceiver.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP0ERC725Account/LSP0Constants.sol": {
+      "lastModificationDate": 1717588903573,
+      "contentHash": "a6ef2ac6b401f3bbd42b333a24888901",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP0ERC725Account/LSP0Constants.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp0-contracts/contracts/LSP0Constants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp0-contracts/contracts/LSP0Constants.sol": {
+      "lastModificationDate": 1717588907946,
+      "contentHash": "5f959e157ab3100b8199f1f26a21bc99",
+      "sourceName": "@lukso/lsp0-contracts/contracts/LSP0Constants.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
     }
   }
 }
