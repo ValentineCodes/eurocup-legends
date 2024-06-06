@@ -39,8 +39,11 @@ export interface EurocupLegendsInterface extends Interface {
       | "MAX_WINNERS"
       | "SHARE_PRECISION"
       | "claimPrize"
+      | "getCreators"
       | "getPrize"
       | "getTicketPrize"
+      | "getWinners"
+      | "isClaimed"
       | "owner"
       | "renounceOwnership"
       | "setWinners"
@@ -71,12 +74,24 @@ export interface EurocupLegendsInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "getCreators",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "getPrize",
     values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getTicketPrize",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getWinners",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isClaimed",
+    values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -108,11 +123,17 @@ export interface EurocupLegendsInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claimPrize", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getCreators",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getPrize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getTicketPrize",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getWinners", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isClaimed", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -214,6 +235,12 @@ export interface EurocupLegends extends BaseContract {
 
   claimPrize: TypedContractMethod<[_ticket: AddressLike], [void], "nonpayable">;
 
+  getCreators: TypedContractMethod<
+    [],
+    [IEurocupLegends.CreatorStructOutput[]],
+    "view"
+  >;
+
   getPrize: TypedContractMethod<
     [_user: AddressLike, _ticket: AddressLike],
     [bigint],
@@ -221,6 +248,14 @@ export interface EurocupLegends extends BaseContract {
   >;
 
   getTicketPrize: TypedContractMethod<[_ticket: AddressLike], [bigint], "view">;
+
+  getWinners: TypedContractMethod<[], [[string, string, string]], "view">;
+
+  isClaimed: TypedContractMethod<
+    [_user: AddressLike, _ticket: AddressLike],
+    [boolean],
+    "view"
+  >;
 
   owner: TypedContractMethod<[], [string], "view">;
 
@@ -258,6 +293,9 @@ export interface EurocupLegends extends BaseContract {
     nameOrSignature: "claimPrize"
   ): TypedContractMethod<[_ticket: AddressLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "getCreators"
+  ): TypedContractMethod<[], [IEurocupLegends.CreatorStructOutput[]], "view">;
+  getFunction(
     nameOrSignature: "getPrize"
   ): TypedContractMethod<
     [_user: AddressLike, _ticket: AddressLike],
@@ -267,6 +305,16 @@ export interface EurocupLegends extends BaseContract {
   getFunction(
     nameOrSignature: "getTicketPrize"
   ): TypedContractMethod<[_ticket: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "getWinners"
+  ): TypedContractMethod<[], [[string, string, string]], "view">;
+  getFunction(
+    nameOrSignature: "isClaimed"
+  ): TypedContractMethod<
+    [_user: AddressLike, _ticket: AddressLike],
+    [boolean],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;

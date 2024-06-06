@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/EurocupLegends.sol": {
-      "lastModificationDate": 1717658952208,
-      "contentHash": "63f4c08f2e17bb34559b8ffd3aef5ccf",
+      "lastModificationDate": 1717665649636,
+      "contentHash": "4e62918c235fb8738f139c6ae483abc6",
       "sourceName": "contracts/EurocupLegends.sol",
       "solcConfig": {
         "version": "0.8.20",

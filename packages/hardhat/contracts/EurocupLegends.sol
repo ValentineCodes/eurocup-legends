@@ -56,6 +56,18 @@ contract EurocupLegends is IEurocupLegends, Ownable {
         emit PrizeClaimed(msg.sender, prize);
     }
 
+    function isClaimed(address _user, address _ticket) external view returns (bool) {
+        return s_isClaimed[_user][_ticket];
+    }
+
+    function getCreators() external view returns (Creator[] memory) {
+        return s_creators;
+    }
+
+    function getWinners() external view returns (address[3] memory) {
+        return s_winners;
+    }
+
     function getPrize(address _user, address _ticket) public view returns (uint256) {
         uint256 ticketPrize = s_prizes[_ticket];
         uint256 userTickets = ITickets(_ticket).balanceOf(_user);
