@@ -14,6 +14,19 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: "bool",
+        name: "isMintOpen",
+        type: "bool",
+      },
+    ],
+    name: "MintStatus",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: "address",
         name: "owner",
         type: "address",

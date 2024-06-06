@@ -46,12 +46,14 @@ export interface EurocupLegendsInterface extends Interface {
       | "isClaimed"
       | "owner"
       | "renounceOwnership"
+      | "setMintStatus"
       | "setWinners"
       | "transferOwnership"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
+      | "MintStatus"
       | "OwnershipTransferred"
       | "PrizeClaimed"
       | "WinnersSet"
@@ -99,6 +101,10 @@ export interface EurocupLegendsInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "setMintStatus",
+    values: [boolean]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setWinners",
     values: [
       [AddressLike, AddressLike, AddressLike],
@@ -139,11 +145,27 @@ export interface EurocupLegendsInterface extends Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "setMintStatus",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "setWinners", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+}
+
+export namespace MintStatusEvent {
+  export type InputTuple = [isMintOpen: boolean];
+  export type OutputTuple = [isMintOpen: boolean];
+  export interface OutputObject {
+    isMintOpen: boolean;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace OwnershipTransferredEvent {
@@ -261,10 +283,16 @@ export interface EurocupLegends extends BaseContract {
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
 
+  setMintStatus: TypedContractMethod<
+    [_isMintOpen: boolean],
+    [void],
+    "nonpayable"
+  >;
+
   setWinners: TypedContractMethod<
     [
       _winners: [AddressLike, AddressLike, AddressLike],
-      _share: [BigNumberish, BigNumberish, BigNumberish]
+      _shares: [BigNumberish, BigNumberish, BigNumberish]
     ],
     [void],
     "nonpayable"
@@ -322,11 +350,14 @@ export interface EurocupLegends extends BaseContract {
     nameOrSignature: "renounceOwnership"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "setMintStatus"
+  ): TypedContractMethod<[_isMintOpen: boolean], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "setWinners"
   ): TypedContractMethod<
     [
       _winners: [AddressLike, AddressLike, AddressLike],
-      _share: [BigNumberish, BigNumberish, BigNumberish]
+      _shares: [BigNumberish, BigNumberish, BigNumberish]
     ],
     [void],
     "nonpayable"
@@ -335,6 +366,13 @@ export interface EurocupLegends extends BaseContract {
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
 
+  getEvent(
+    key: "MintStatus"
+  ): TypedContractEvent<
+    MintStatusEvent.InputTuple,
+    MintStatusEvent.OutputTuple,
+    MintStatusEvent.OutputObject
+  >;
   getEvent(
     key: "OwnershipTransferred"
   ): TypedContractEvent<
@@ -358,6 +396,17 @@ export interface EurocupLegends extends BaseContract {
   >;
 
   filters: {
+    "MintStatus(bool)": TypedContractEvent<
+      MintStatusEvent.InputTuple,
+      MintStatusEvent.OutputTuple,
+      MintStatusEvent.OutputObject
+    >;
+    MintStatus: TypedContractEvent<
+      MintStatusEvent.InputTuple,
+      MintStatusEvent.OutputTuple,
+      MintStatusEvent.OutputObject
+    >;
+
     "OwnershipTransferred(address,address)": TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,

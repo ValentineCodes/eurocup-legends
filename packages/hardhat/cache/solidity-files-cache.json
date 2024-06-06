@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/EurocupLegends.sol": {
-      "lastModificationDate": 1717665649636,
-      "contentHash": "4e62918c235fb8738f139c6ae483abc6",
+      "lastModificationDate": 1717709576068,
+      "contentHash": "8dae1aa0089a21ce160b73bbccf90da2",
       "sourceName": "contracts/EurocupLegends.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -50,8 +50,8 @@
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/utils/Errors.sol": {
-      "lastModificationDate": 1717656781651,
-      "contentHash": "d6c1cd60097ce0b5d2c429d8381e95ba",
+      "lastModificationDate": 1717709402851,
+      "contentHash": "9ab6f1d632238b5d5050088ce16af2ac",
       "sourceName": "contracts/utils/Errors.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -136,8 +136,8 @@
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/IEurocupLegends.sol": {
-      "lastModificationDate": 1717658802251,
-      "contentHash": "7854af6d4f0026f388d73b8b6ca7e36d",
+      "lastModificationDate": 1717709538263,
+      "contentHash": "bfc4ba6434517de3f937be5bfaea865b",
       "sourceName": "contracts/interfaces/IEurocupLegends.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -401,7 +401,7 @@
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/tokens/Tickets.sol": {
-      "lastModificationDate": 1717658969062,
+      "lastModificationDate": 1717708565542,
       "contentHash": "46b1da46f1c84df3b2c176e6908f873a",
       "sourceName": "contracts/tokens/Tickets.sol",
       "solcConfig": {

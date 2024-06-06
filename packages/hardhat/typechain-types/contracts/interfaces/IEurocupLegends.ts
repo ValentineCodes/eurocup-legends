@@ -22,8 +22,20 @@ import type {
 
 export interface IEurocupLegendsInterface extends Interface {
   getEvent(
-    nameOrSignatureOrTopic: "PrizeClaimed" | "WinnersSet"
+    nameOrSignatureOrTopic: "MintStatus" | "PrizeClaimed" | "WinnersSet"
   ): EventFragment;
+}
+
+export namespace MintStatusEvent {
+  export type InputTuple = [isMintOpen: boolean];
+  export type OutputTuple = [isMintOpen: boolean];
+  export interface OutputObject {
+    isMintOpen: boolean;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace PrizeClaimedEvent {
@@ -99,6 +111,13 @@ export interface IEurocupLegends extends BaseContract {
   ): T;
 
   getEvent(
+    key: "MintStatus"
+  ): TypedContractEvent<
+    MintStatusEvent.InputTuple,
+    MintStatusEvent.OutputTuple,
+    MintStatusEvent.OutputObject
+  >;
+  getEvent(
     key: "PrizeClaimed"
   ): TypedContractEvent<
     PrizeClaimedEvent.InputTuple,
@@ -114,6 +133,17 @@ export interface IEurocupLegends extends BaseContract {
   >;
 
   filters: {
+    "MintStatus(bool)": TypedContractEvent<
+      MintStatusEvent.InputTuple,
+      MintStatusEvent.OutputTuple,
+      MintStatusEvent.OutputObject
+    >;
+    MintStatus: TypedContractEvent<
+      MintStatusEvent.InputTuple,
+      MintStatusEvent.OutputTuple,
+      MintStatusEvent.OutputObject
+    >;
+
     "PrizeClaimed(address,uint256)": TypedContractEvent<
       PrizeClaimedEvent.InputTuple,
       PrizeClaimedEvent.OutputTuple,

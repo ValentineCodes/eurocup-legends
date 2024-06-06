@@ -3,7 +3,7 @@ import { deployments, ethers } from "hardhat";
 import { Tickets, EurocupLegends, UPMock } from "../typechain-types";
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 
-describe("Tickets", () => {
+describe("Contracts", () => {
     let owner: HardhatEthersSigner
     let creator1: HardhatEthersSigner
     let creator2: HardhatEthersSigner
@@ -44,7 +44,7 @@ describe("Tickets", () => {
         )
     })
 
-    describe("mint()", () => {
+    describe("Tickets.mint()", () => {
         it("mints 3 tickets to the recipient and 5 max", async () => {
             // mint 3
             await tickets.mint(user, 3, {value: ethers.parseEther((TICKET_PRICE * 3).toString())})
@@ -81,6 +81,11 @@ describe("Tickets", () => {
                 const creatorCurrentBal = await ethers.provider.getBalance(creators[i].creator)
                 expect(creatorCurrentBal).to.eq(creatorPrevBal + ethers.parseEther(share.toString()))
             }
+        })
+        it("reverts if mint is closed", async () => {
+            await eurocupLegends.setMintStatus(false)
+
+            await expect(tickets.mint(user, 1, {value: ethers.parseEther((TICKET_PRICE).toString())})).to.be.revertedWithCustomError(eurocupLegends, "TransferFailed")
         })
     })
 })
