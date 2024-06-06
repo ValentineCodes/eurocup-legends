@@ -6,4 +6,6 @@ interface IEurocupLegends {
         address creator;
         uint256 share;
     }
+
+    event WinnersSet(address[] winners);
 }
