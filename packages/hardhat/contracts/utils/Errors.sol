@@ -21,4 +21,4 @@ error FeeTransferFailed(address _creators, uint256 _amount);
 
 error NoWinnersYet();
 
-error AlreadySetWinners();
+error MintClosed();

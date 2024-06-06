@@ -14,6 +14,8 @@ contract EurocupLegends is IEurocupLegends, Ownable {
     Creator[] private s_creators;
     address[3] private s_winners;
 
+    bool private s_isMintOpen = true;
+
     mapping(address ticket => uint256 prize) private s_prizes;
     mapping(address user => mapping(address ticket => bool isClaimed)) private s_isClaimed;
 
@@ -21,6 +23,16 @@ contract EurocupLegends is IEurocupLegends, Ownable {
         for(uint256 i; i < _creators.length; i++) {
             s_creators.push(_creators[i]);
         }
+    }
+
+    modifier isMintOpen() {
+        if(!s_isMintOpen) revert MintClosed();
+        _;
+    }
+
+    function setMintStatus(bool _isMintOpen) external onlyOwner {
+        s_isMintOpen = _isMintOpen;
+        emit MintStatus(_isMintOpen);
     }
 
     function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _shares) external onlyOwner {
@@ -78,7 +90,7 @@ contract EurocupLegends is IEurocupLegends, Ownable {
         return s_prizes[_ticket];
     }
 
-    function _handleDeposit(uint256 _amount) private {
+    function _handleDeposit(uint256 _amount) private isMintOpen {
         // 25% of deposits
         uint256 fees = (_amount * FEE_PERCENTAGE) / SHARE_PRECISION;
 
