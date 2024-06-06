@@ -3,9 +3,10 @@ pragma solidity 0.8.20;
 
 import {LSP7DigitalAsset} from '@lukso/lsp7-contracts/contracts/LSP7DigitalAsset.sol';
 import {_LSP4_TOKEN_TYPE_NFT} from '@lukso/lsp4-contracts/contracts/LSP4Constants.sol';
-import {Errors} from '../utils/Errors.sol';
+import {ITickets} from '../interfaces/ITickets.sol';
+import '../utils/Errors.sol';
 
-contract Tickets is LSP7DigitalAsset {
+contract Tickets is ITickets, LSP7DigitalAsset {
     uint256 public constant MAX_SUPPLY = 100;
     uint256 public constant MAX_MINT = 5;
     address private immutable i_prizePool;
@@ -37,11 +38,11 @@ contract Tickets is LSP7DigitalAsset {
         emit TicketsMinted(_recipient, _amount);
     }
 
-    function getPrizePool() external returns (address) {
+    function getPrizePool() external view returns (address) {
         return i_prizePool;
     }
 
-    function getPrice() external returns (uint256) {
+    function getPrice() external view returns (uint256) {
         return i_price;
     }
 }

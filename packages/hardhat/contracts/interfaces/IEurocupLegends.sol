@@ -7,5 +7,6 @@ interface IEurocupLegends {
         uint256 share;
     }
 
-    event WinnersSet(address[] winners);
+    event WinnersSet(address[3] winners);
+    event PrizeClaimed(address owner, uint256 prize);
 }

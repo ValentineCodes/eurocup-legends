@@ -3,16 +3,18 @@ pragma solidity 0.8.20;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {IEurocupLegends} from "./interfaces/IEurocupLegends.sol";
-import {Errors} from "./utils/Errors.sol";
+import {ITickets} from "./interfaces/ITickets.sol";
+import "./utils/Errors.sol";
 
-contract EurocupLegends is IEurocupLegends, Ownable, Errors {
+contract EurocupLegends is IEurocupLegends, Ownable {
     uint256 public constant FEE_PERCENTAGE = 25;
     uint256 public constant SHARE_PRECISION = 100;
+    uint256 public constant MAX_WINNERS = 3;
 
     Creator[] private s_creators;
     address[3] private s_winners;
 
-    mapping(address winner => uint256 prize) private s_prizes;
+    mapping(address ticket => uint256 prize) private s_prizes;
     mapping(address user => mapping(address ticket => bool isClaimed)) private s_isClaimed;
 
     constructor(Creator[] memory _creators, address _owner) Ownable(_owner) {
@@ -21,25 +23,51 @@ contract EurocupLegends is IEurocupLegends, Ownable, Errors {
         }
     }
 
-    function setWinners(address[3] calldata _winners, uint256[] calldata _share) external onlyOwner {
-        uint256 memory winnersLength = s_winners.length;
+    function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _share) external onlyOwner {
+        uint256 winnersLength = s_winners.length;
         uint256 totalPrize = address(this).balance;
 
-        if(winnersLength != 3) revert NoWinnersYet();
+        if(winnersLength != MAX_WINNERS) revert NoWinnersYet();
 
-        for(uint256 i; i < winnersLength; i++) {
+        for(uint256 i; i < MAX_WINNERS; i++) {
             address winner = _winners[i];
             uint256 prize = (totalPrize * _share[i]) / SHARE_PRECISION;
 
-            s_winners.push(winner);
+            s_winners[i] = winner;
             s_prizes[winner] = prize;
         }
 
         emit WinnersSet(_winners);
     }
 
-    function getPrize(address winner) public returns (uint256) {
-        return s_prizes[winner];
+    function claimPrize(address _ticket) external {
+        if(_ticket == address(0)) revert ZeroAddress();
+        if(s_prizes[_ticket] == 0) revert NoPrizeForThisTicket();
+        if(s_isClaimed[msg.sender][_ticket]) revert AlreadyClaimedPrize();
+
+        uint256 prize = getPrize(msg.sender, _ticket);
+
+        s_prizes[_ticket] = s_prizes[_ticket] - prize;
+        s_isClaimed[msg.sender][_ticket] = true;
+
+        (bool success, ) = msg.sender.call{value: prize}('');
+        if(!success) revert TransferFailed();
+
+        emit PrizeClaimed(msg.sender, prize);
+    }
+
+    function getPrize(address _user, address _ticket) public view returns (uint256) {
+        uint256 ticketPrize = s_prizes[_ticket];
+        uint256 userTickets = ITickets(_ticket).balanceOf(_user);
+        uint256 totalTickets = ITickets(_ticket).totalSupply();
+
+        if(userTickets == 0) revert NoTickets();
+
+        return (userTickets * ticketPrize) / totalTickets;
+    }
+
+    function getTicketPrize(address _ticket) public view returns (uint256) {
+        return s_prizes[_ticket];
     }
 
     function _handleDeposit(uint256 _amount) private {
@@ -54,8 +82,8 @@ contract EurocupLegends is IEurocupLegends, Ownable, Errors {
 
             uint256 feeCut = (fees * creator.share) / SHARE_PRECISION;
 
-            (bool success,) = creator.address.call{value: feeCut}("");
-            if(!success) revert FeeTransferFailed(creator.address, feeCut);
+            (bool success,) = creator.creator.call{value: feeCut}("");
+            if(!success) revert FeeTransferFailed(creator.creator, feeCut);
         }
     }
 

@@ -5,6 +5,12 @@ error MintLimitExceeded();
 
 error InvalidMintPrice();
 
+error NoPrizeForThisTicket();
+
+error AlreadyClaimedPrize();
+
+error NoTickets();
+
 error ZeroAddress();
 
 error ZeroAmount();
