@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { deployments, ethers } from "hardhat";
-import { Tickets, EurocupLegends, UPMock } from "../typechain-types";
+import { Shirts, EurocupLegends, UPMock } from "../typechain-types";
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 
 describe("Contracts", () => {
@@ -11,7 +11,7 @@ describe("Contracts", () => {
     let user: string
     let creators: any
 
-    let tickets: Tickets
+    let shirts: Shirts
     let eurocupLegends: EurocupLegends
 
     const TICKET_PRICE = 15
@@ -34,9 +34,9 @@ describe("Contracts", () => {
 
         eurocupLegends = (await eurocupLegendsFactory.deploy(creators, owner))
         
-        const ticketsFactory = await ethers.getContractFactory("Tickets")
-        tickets = (await ticketsFactory.deploy(
-            "England Tickets", 
+        const shirtsFactory = await ethers.getContractFactory("Shirts")
+        shirts = (await shirtsFactory.deploy(
+            "England Shirts", 
             "ENG", 
             owner,
             await eurocupLegends.getAddress(), 
@@ -44,31 +44,31 @@ describe("Contracts", () => {
         )
     })
 
-    describe("Tickets.mint()", () => {
-        it("mints 3 tickets to the recipient and 5 max", async () => {
+    describe("Shirts.mint()", () => {
+        it("mints 3 shirts to the recipient and 5 max", async () => {
             // mint 3
-            await tickets.mint(user, 3, {value: ethers.parseEther((TICKET_PRICE * 3).toString())})
+            await shirts.mint(user, 3, {value: ethers.parseEther((TICKET_PRICE * 3).toString())})
 
-            expect(await tickets.balanceOf(user)).to.eq(3)
+            expect(await shirts.balanceOf(user)).to.eq(3)
 
             // mint 2 more
-            await tickets.mint(user, 2, {value: ethers.parseEther((TICKET_PRICE * 2).toString())})
-            expect(await tickets.balanceOf(user)).to.eq(5)
+            await shirts.mint(user, 2, {value: ethers.parseEther((TICKET_PRICE * 2).toString())})
+            expect(await shirts.balanceOf(user)).to.eq(5)
 
             // try to mint 1 more
-            await expect(tickets.mint(user, 1, {value: ethers.parseEther(TICKET_PRICE.toString())})).to.be.revertedWithCustomError(tickets, "MintLimitExceeded")
+            await expect(shirts.mint(user, 1, {value: ethers.parseEther(TICKET_PRICE.toString())})).to.be.revertedWithCustomError(shirts, "MintLimitExceeded")
         })
         it("sends cost to the prize pool and splits fee among creators", async () => {
-            const ticketsCost = TICKET_PRICE * 3
-            const prize = 0.75 * ticketsCost
-            const fee = 0.25 * ticketsCost
+            const shirtsCost = TICKET_PRICE * 3
+            const prize = 0.75 * shirtsCost
+            const fee = 0.25 * shirtsCost
 
             let creator1PrevBal = await ethers.provider.getBalance(creator1.address)
             let creator2PrevBal = await ethers.provider.getBalance(creator2.address)
             let creator3PrevBal = await ethers.provider.getBalance(creator3.address)
             let creatorsPrevBals = [creator1PrevBal, creator2PrevBal, creator3PrevBal]
 
-            await tickets.mint(user, 3, {value: ethers.parseEther((ticketsCost).toString())})
+            await shirts.mint(user, 3, {value: ethers.parseEther((shirtsCost).toString())})
 
             // prize pool keeps 75%
             const prizePoolBalance = await ethers.provider.getBalance(eurocupLegends)
@@ -85,7 +85,7 @@ describe("Contracts", () => {
         it("reverts if mint is closed", async () => {
             await eurocupLegends.setMintStatus(false)
 
-            await expect(tickets.mint(user, 1, {value: ethers.parseEther((TICKET_PRICE).toString())})).to.be.revertedWithCustomError(eurocupLegends, "TransferFailed")
+            await expect(shirts.mint(user, 1, {value: ethers.parseEther((TICKET_PRICE).toString())})).to.be.revertedWithCustomError(eurocupLegends, "TransferFailed")
         })
     })
 })
