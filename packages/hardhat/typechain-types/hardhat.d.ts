@@ -82,9 +82,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC165__factory>;
     getContractFactory(
+      name: "ECL",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ECL__factory>;
+    getContractFactory(
       name: "EurocupLegends",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.EurocupLegends__factory>;
+    getContractFactory(
+      name: "IECL",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IECL__factory>;
     getContractFactory(
       name: "IEurocupLegends",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -200,10 +208,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC165>;
     getContractAt(
+      name: "ECL",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ECL>;
+    getContractAt(
       name: "EurocupLegends",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.EurocupLegends>;
+    getContractAt(
+      name: "IECL",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IECL>;
     getContractAt(
       name: "IEurocupLegends",
       address: string | ethers.Addressable,
@@ -309,9 +327,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC165>;
     deployContract(
+      name: "ECL",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ECL>;
+    deployContract(
       name: "EurocupLegends",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.EurocupLegends>;
+    deployContract(
+      name: "IECL",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IECL>;
     deployContract(
       name: "IEurocupLegends",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -427,10 +453,20 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC165>;
     deployContract(
+      name: "ECL",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ECL>;
+    deployContract(
       name: "EurocupLegends",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.EurocupLegends>;
+    deployContract(
+      name: "IECL",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IECL>;
     deployContract(
       name: "IEurocupLegends",
       args: any[],

@@ -44,8 +44,12 @@ export type { ERC165 } from "./@openzeppelin/contracts/utils/introspection/ERC16
 export { ERC165__factory } from "./factories/@openzeppelin/contracts/utils/introspection/ERC165__factory";
 export type { IERC165 } from "./@openzeppelin/contracts/utils/introspection/IERC165";
 export { IERC165__factory } from "./factories/@openzeppelin/contracts/utils/introspection/IERC165__factory";
+export type { ECL } from "./contracts/ECL";
+export { ECL__factory } from "./factories/contracts/ECL__factory";
 export type { EurocupLegends } from "./contracts/EurocupLegends";
 export { EurocupLegends__factory } from "./factories/contracts/EurocupLegends__factory";
+export type { IECL } from "./contracts/interfaces/IECL";
+export { IECL__factory } from "./factories/contracts/interfaces/IECL__factory";
 export type { IEurocupLegends } from "./contracts/interfaces/IEurocupLegends";
 export { IEurocupLegends__factory } from "./factories/contracts/interfaces/IEurocupLegends__factory";
 export type { IShirts } from "./contracts/interfaces/IShirts";
