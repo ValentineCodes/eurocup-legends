@@ -19,8 +19,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
 
     mapping(address country => uint256 prize) private s_prizes;
     mapping(address country => mapping(bytes32 tokenId => bool isClaimed)) private s_isClaimed;
-
-    uint256 private s_totalClaimed;
+    mapping(address country => uint256 totalClaimed) private s_totalClaimed;
 
     constructor(Creator[] memory _creators, address _owner) Ownable(_owner) {
         for(uint256 i; i < _creators.length; i++) {
@@ -77,12 +76,14 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
 
         if(unclaimedShirts == 0) revert AlreadyClaimedPrize();
 
-        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - s_totalClaimed;
+        uint256 totalClaimed = s_totalClaimed[_country];
+
+        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - totalClaimed;
 
         uint256 prize = (unclaimedShirts * countryPrize) / totalUnclaimedShirts;
 
         s_prizes[_country] = countryPrize - prize;
-        s_totalClaimed = s_totalClaimed + unclaimedShirts;
+        s_totalClaimed[_country] = totalClaimed + unclaimedShirts;
 
         (bool success, ) = _recipient.call{value: prize}('');
         if(!success) revert TransferFailed();
@@ -92,7 +93,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
 
     function getPrize(address _user, address _country) external view returns (uint256) {
         uint256 countryPrize = s_prizes[_country];
-        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - s_totalClaimed;
+        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - s_totalClaimed[_country];
 
         bytes32[] memory userTokenIds = IShirts(_country).tokenIdsOf(_user);
         uint256 userTokenIdsLength = userTokenIds.length;
