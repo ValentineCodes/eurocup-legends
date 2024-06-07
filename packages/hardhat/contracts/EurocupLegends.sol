@@ -28,7 +28,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         }
     }
 
-    modifier isMintOpen() {
+    modifier ifMintOpen() {
         if(!s_isMintOpen) revert MintClosed();
         _;
     }
@@ -111,6 +111,10 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         return (unclaimedShirts * countryPrize) / totalUnclaimedShirts;
     }
 
+    function isMintOpen() external view returns (bool) {
+        return s_isMintOpen;
+    }
+
     function isClaimed(address _country, bytes32 _tokenId) external view returns (bool) {
         return s_isClaimed[_country][_tokenId];
     }
@@ -127,7 +131,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         return s_prizes[_country];
     }
 
-    function _handleDeposit(uint256 _amount) private isMintOpen {
+    function _handleDeposit(uint256 _amount) private ifMintOpen {
         // 25% of deposits
         uint256 fees = (_amount * FEE_PERCENTAGE) / SHARE_PRECISION;
 

@@ -86,17 +86,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ReentrancyGuard__factory>;
     getContractFactory(
-      name: "ECL",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ECL__factory>;
-    getContractFactory(
       name: "EurocupLegends",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.EurocupLegends__factory>;
-    getContractFactory(
-      name: "IECL",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IECL__factory>;
     getContractFactory(
       name: "IEurocupLegends",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -105,10 +97,6 @@ declare module "hardhat/types/runtime" {
       name: "IShirts",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IShirts__factory>;
-    getContractFactory(
-      name: "ITickets",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ITickets__factory>;
     getContractFactory(
       name: "BPunX",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -121,10 +109,6 @@ declare module "hardhat/types/runtime" {
       name: "Shirts",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Shirts__factory>;
-    getContractFactory(
-      name: "Tickets",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Tickets__factory>;
 
     getContractAt(
       name: "OwnableUnset",
@@ -217,20 +201,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ReentrancyGuard>;
     getContractAt(
-      name: "ECL",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ECL>;
-    getContractAt(
       name: "EurocupLegends",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.EurocupLegends>;
-    getContractAt(
-      name: "IECL",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IECL>;
     getContractAt(
       name: "IEurocupLegends",
       address: string | ethers.Addressable,
@@ -241,11 +215,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.IShirts>;
-    getContractAt(
-      name: "ITickets",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ITickets>;
     getContractAt(
       name: "BPunX",
       address: string | ethers.Addressable,
@@ -261,11 +230,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.Shirts>;
-    getContractAt(
-      name: "Tickets",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Tickets>;
 
     deployContract(
       name: "OwnableUnset",
@@ -340,17 +304,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ReentrancyGuard>;
     deployContract(
-      name: "ECL",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ECL>;
-    deployContract(
       name: "EurocupLegends",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.EurocupLegends>;
-    deployContract(
-      name: "IECL",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IECL>;
     deployContract(
       name: "IEurocupLegends",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -359,10 +315,6 @@ declare module "hardhat/types/runtime" {
       name: "IShirts",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IShirts>;
-    deployContract(
-      name: "ITickets",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITickets>;
     deployContract(
       name: "BPunX",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -375,10 +327,6 @@ declare module "hardhat/types/runtime" {
       name: "Shirts",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Shirts>;
-    deployContract(
-      name: "Tickets",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Tickets>;
 
     deployContract(
       name: "OwnableUnset",
@@ -471,20 +419,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ReentrancyGuard>;
     deployContract(
-      name: "ECL",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ECL>;
-    deployContract(
       name: "EurocupLegends",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.EurocupLegends>;
-    deployContract(
-      name: "IECL",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IECL>;
     deployContract(
       name: "IEurocupLegends",
       args: any[],
@@ -495,11 +433,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IShirts>;
-    deployContract(
-      name: "ITickets",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITickets>;
     deployContract(
       name: "BPunX",
       args: any[],
@@ -515,11 +448,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Shirts>;
-    deployContract(
-      name: "Tickets",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Tickets>;
 
     // default types
     getContractFactory(

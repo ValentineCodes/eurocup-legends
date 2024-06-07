@@ -7,5 +7,4 @@ import type * as mocks from "./mocks";
 export type { mocks };
 import type * as tokens from "./tokens";
 export type { tokens };
-export type { ECL } from "./ECL";
 export type { EurocupLegends } from "./EurocupLegends";

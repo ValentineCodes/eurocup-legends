@@ -3,7 +3,7 @@ import { deployments, ethers } from "hardhat";
 import { Shirts, EurocupLegends, UPMock } from "../typechain-types";
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 
-describe("Contracts", () => {
+describe("Test", () => {
     let owner: HardhatEthersSigner
     let creator1: HardhatEthersSigner
     let creator2: HardhatEthersSigner
@@ -11,10 +11,14 @@ describe("Contracts", () => {
     let user: string
     let creators: any
 
-    let shirts: Shirts
+    let engShirts: Shirts
+    let frShirts: Shirts
+    let grShirts: Shirts
     let eurocupLegends: EurocupLegends
 
-    const TICKET_PRICE = 15
+    const ENG_SHIRT_PRICE = 15
+    const FR_SHIRT_PRICE = 14
+    const GR_SHIRT_PRICE = 13
 
     beforeEach(async () => {
         const signers: any[] = await ethers.getSigners()
@@ -35,40 +39,54 @@ describe("Contracts", () => {
         eurocupLegends = (await eurocupLegendsFactory.deploy(creators, owner))
         
         const shirtsFactory = await ethers.getContractFactory("Shirts")
-        shirts = (await shirtsFactory.deploy(
+        engShirts = (await shirtsFactory.deploy(
             "England Shirts", 
             "ENG", 
             owner,
             await eurocupLegends.getAddress(), 
-            ethers.parseEther(TICKET_PRICE.toString()))
+            ethers.parseEther("15"))
+        )
+        frShirts = (await shirtsFactory.deploy(
+            "France Shirts", 
+            "FR", 
+            owner,
+            await eurocupLegends.getAddress(), 
+            ethers.parseEther("14"))
+        )
+        grShirts = (await shirtsFactory.deploy(
+            "Germany Shirts", 
+            "GR", 
+            owner,
+            await eurocupLegends.getAddress(), 
+            ethers.parseEther("13"))
         )
     })
 
     describe("Shirts.mint()", () => {
-        it("mints 3 shirts to the recipient and 5 max", async () => {
+        it("mints 3 England shirts to the recipient and 5 max", async () => {
             // mint 3
-            await shirts.mint(user, 3, {value: ethers.parseEther((TICKET_PRICE * 3).toString())})
+            await engShirts.mint(user, 3, {value: ethers.parseEther((ENG_SHIRT_PRICE * 3).toString())})
 
-            expect(await shirts.balanceOf(user)).to.eq(3)
+            expect(await engShirts.balanceOf(user)).to.eq(3)
 
             // mint 2 more
-            await shirts.mint(user, 2, {value: ethers.parseEther((TICKET_PRICE * 2).toString())})
-            expect(await shirts.balanceOf(user)).to.eq(5)
+            await engShirts.mint(user, 2, {value: ethers.parseEther((ENG_SHIRT_PRICE * 2).toString())})
+            expect(await engShirts.balanceOf(user)).to.eq(5)
 
             // try to mint 1 more
-            await expect(shirts.mint(user, 1, {value: ethers.parseEther(TICKET_PRICE.toString())})).to.be.revertedWithCustomError(shirts, "MintLimitExceeded")
+            await expect(engShirts.mint(user, 1, {value: ethers.parseEther(ENG_SHIRT_PRICE.toString())})).to.be.revertedWithCustomError(engShirts, "MintLimitExceeded")
         })
         it("sends cost to the prize pool and splits fee among creators", async () => {
-            const shirtsCost = TICKET_PRICE * 3
-            const prize = 0.75 * shirtsCost
-            const fee = 0.25 * shirtsCost
+            const engShirtsCost = ENG_SHIRT_PRICE * 3
+            const prize = 0.75 * engShirtsCost
+            const fee = 0.25 * engShirtsCost
 
             let creator1PrevBal = await ethers.provider.getBalance(creator1.address)
             let creator2PrevBal = await ethers.provider.getBalance(creator2.address)
             let creator3PrevBal = await ethers.provider.getBalance(creator3.address)
             let creatorsPrevBals = [creator1PrevBal, creator2PrevBal, creator3PrevBal]
 
-            await shirts.mint(user, 3, {value: ethers.parseEther((shirtsCost).toString())})
+            await engShirts.mint(user, 3, {value: ethers.parseEther((engShirtsCost).toString())})
 
             // prize pool keeps 75%
             const prizePoolBalance = await ethers.provider.getBalance(eurocupLegends)
@@ -85,7 +103,47 @@ describe("Contracts", () => {
         it("reverts if mint is closed", async () => {
             await eurocupLegends.setMintStatus(false)
 
-            await expect(shirts.mint(user, 1, {value: ethers.parseEther((TICKET_PRICE).toString())})).to.be.revertedWithCustomError(eurocupLegends, "TransferFailed")
+            await expect(engShirts.mint(user, 1, {value: ethers.parseEther((ENG_SHIRT_PRICE).toString())})).to.be.revertedWithCustomError(eurocupLegends, "TransferFailed")
+        })
+    })
+
+    describe("EurocupLegends.setWinners()", () => {
+        async function mintShirts() {
+            await engShirts.mint(user, 3, {value: ethers.parseEther((ENG_SHIRT_PRICE * 3).toString())})
+            await frShirts.mint(user, 3, {value: ethers.parseEther((FR_SHIRT_PRICE * 3).toString())})
+            await grShirts.mint(user, 3, {value: ethers.parseEther((GR_SHIRT_PRICE * 3).toString())})
+        }
+
+        async function setWinners() {
+            await mintShirts()
+
+            const engAddress = await engShirts.getAddress()
+            const frAddress = await frShirts.getAddress()
+            const grAddress = await grShirts.getAddress()
+
+            const winners = [engAddress, frAddress, grAddress]
+            const shares = [60, 30, 10]
+            // @ts-ignore
+            await eurocupLegends.setWinners(winners, shares)
+        }
+
+        it("closes mint", async () => {
+            await setWinners()
+
+            expect(await eurocupLegends.isMintOpen()).to.be.false
+        })
+        it("stores prize of each country", async () => {
+            await setWinners()
+
+            const engPrize = await eurocupLegends.getCountryPrize(await engShirts.getAddress())
+            const frPrize = await eurocupLegends.getCountryPrize(await frShirts.getAddress())
+            const grPrize = await eurocupLegends.getCountryPrize(await grShirts.getAddress())
+
+            console.log("ENG Prize => ", ethers.formatEther(engPrize), 'LYX')
+            console.log("FR Prize => ", ethers.formatEther(frPrize), 'LYX')
+            console.log("GR Prize => ", ethers.formatEther(grPrize), 'LYX')
+
+            expect(engPrize + frPrize + grPrize).to.eq(await ethers.provider.getBalance(eurocupLegends))
         })
     })
 })

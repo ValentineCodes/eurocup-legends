@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Shirts } from "./Shirts";
-export type { Tickets } from "./Tickets";

@@ -44,6 +44,7 @@ export interface EurocupLegendsInterface extends Interface {
       | "getPrize"
       | "getWinners"
       | "isClaimed"
+      | "isMintOpen"
       | "owner"
       | "renounceOwnership"
       | "setMintStatus"
@@ -95,6 +96,10 @@ export interface EurocupLegendsInterface extends Interface {
     functionFragment: "isClaimed",
     values: [AddressLike, BytesLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "isMintOpen",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -140,6 +145,7 @@ export interface EurocupLegendsInterface extends Interface {
   decodeFunctionResult(functionFragment: "getPrize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getWinners", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isClaimed", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isMintOpen", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -287,6 +293,8 @@ export interface EurocupLegends extends BaseContract {
     "view"
   >;
 
+  isMintOpen: TypedContractMethod<[], [boolean], "view">;
+
   owner: TypedContractMethod<[], [string], "view">;
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
@@ -355,6 +363,9 @@ export interface EurocupLegends extends BaseContract {
     [boolean],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "isMintOpen"
+  ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;

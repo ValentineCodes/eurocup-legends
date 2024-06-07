@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export { Shirts__factory } from "./Shirts__factory";
-export { Tickets__factory } from "./Tickets__factory";
