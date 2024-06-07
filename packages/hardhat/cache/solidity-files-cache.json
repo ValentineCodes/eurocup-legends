@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/EurocupLegends.sol": {
-      "lastModificationDate": 1717709986805,
-      "contentHash": "8dae1aa0089a21ce160b73bbccf90da2",
+      "lastModificationDate": 1717746276669,
+      "contentHash": "893cec3f3bcbbd75071b8902b27c948e",
       "sourceName": "contracts/EurocupLegends.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -38,8 +38,9 @@
       },
       "imports": [
         "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
         "./interfaces/IEurocupLegends.sol",
-        "./interfaces/ITickets.sol",
+        "./interfaces/IShirts.sol",
         "./utils/Errors.sol"
       ],
       "versionPragmas": [
@@ -50,8 +51,8 @@
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/utils/Errors.sol": {
-      "lastModificationDate": 1717725378909,
-      "contentHash": "b28848d75616255b950523fa4a3ce811",
+      "lastModificationDate": 1717746527770,
+      "contentHash": "870028fb8dabb7499f3360cf7cb2c65e",
       "sourceName": "contracts/utils/Errors.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -89,51 +90,6 @@
         "0.8.20"
       ],
       "artifacts": []
-    },
-    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/ITickets.sol": {
-      "lastModificationDate": 1717658895869,
-      "contentHash": "82114dba9e4e591cfc4eb11735a90f17",
-      "sourceName": "contracts/interfaces/ITickets.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@lukso/lsp7-contracts/contracts/ILSP7DigitalAsset.sol"
-      ],
-      "versionPragmas": [
-        "0.8.20"
-      ],
-      "artifacts": [
-        "ITickets"
-      ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/IEurocupLegends.sol": {
       "lastModificationDate": 1717709538263,
@@ -398,54 +354,6 @@
       ],
       "artifacts": [
         "Context"
-      ]
-    },
-    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/tokens/Tickets.sol": {
-      "lastModificationDate": 1717708565542,
-      "contentHash": "46b1da46f1c84df3b2c176e6908f873a",
-      "sourceName": "contracts/tokens/Tickets.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@lukso/lsp7-contracts/contracts/LSP7DigitalAsset.sol",
-        "@lukso/lsp4-contracts/contracts/LSP4Constants.sol",
-        "../interfaces/ITickets.sol",
-        "../utils/Errors.sol"
-      ],
-      "versionPragmas": [
-        "0.8.20"
-      ],
-      "artifacts": [
-        "Tickets"
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp4-contracts/contracts/LSP4Constants.sol": {
@@ -2198,58 +2106,10 @@
       ],
       "artifacts": []
     },
-    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/ECL.sol": {
-      "lastModificationDate": 1717727481013,
-      "contentHash": "9817ec3c7925768dfd1d4db9eb3fc6f8",
-      "sourceName": "contracts/ECL.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "./interfaces/IECL.sol",
-        "./interfaces/IShirts.sol",
-        "./utils/Errors.sol"
-      ],
-      "versionPragmas": [
-        "0.8.20"
-      ],
-      "artifacts": [
-        "ECL"
-      ]
-    },
-    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/IECL.sol": {
-      "lastModificationDate": 1717725194491,
-      "contentHash": "687b39be8f659cf70911f800b9dfd7a1",
-      "sourceName": "contracts/interfaces/IECL.sol",
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol": {
+      "lastModificationDate": 1717652076809,
+      "contentHash": "a92331adac11b453a4de0323fc948119",
+      "sourceName": "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -2283,10 +2143,10 @@
       },
       "imports": [],
       "versionPragmas": [
-        "0.8.20"
+        "^0.8.20"
       ],
       "artifacts": [
-        "IECL"
+        "ReentrancyGuard"
       ]
     }
   }

@@ -5,13 +5,9 @@ error MintLimitExceeded();
 
 error InvalidMintPrice();
 
-error NoPrizeForThisTicket();
-
 error NoPrizeForThisCountry();
 
 error AlreadyClaimedPrize();
-
-error NoTickets();
 
 error NoShirts();
 

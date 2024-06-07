@@ -39,9 +39,9 @@ export interface EurocupLegendsInterface extends Interface {
       | "MAX_WINNERS"
       | "SHARE_PRECISION"
       | "claimPrize"
+      | "getCountryPrize"
       | "getCreators"
       | "getPrize"
-      | "getTicketPrize"
       | "getWinners"
       | "isClaimed"
       | "owner"
@@ -73,6 +73,10 @@ export interface EurocupLegendsInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "claimPrize",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCountryPrize",
     values: [AddressLike]
   ): string;
   encodeFunctionData(
@@ -84,16 +88,12 @@ export interface EurocupLegendsInterface extends Interface {
     values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "getTicketPrize",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getWinners",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "isClaimed",
-    values: [AddressLike, AddressLike]
+    values: [AddressLike, BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -130,14 +130,14 @@ export interface EurocupLegendsInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "claimPrize", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getCountryPrize",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getCreators",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getPrize", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getTicketPrize",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "getWinners", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isClaimed", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
@@ -255,7 +255,17 @@ export interface EurocupLegends extends BaseContract {
 
   SHARE_PRECISION: TypedContractMethod<[], [bigint], "view">;
 
-  claimPrize: TypedContractMethod<[_ticket: AddressLike], [void], "nonpayable">;
+  claimPrize: TypedContractMethod<
+    [_recipient: AddressLike, _country: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  getCountryPrize: TypedContractMethod<
+    [_country: AddressLike],
+    [bigint],
+    "view"
+  >;
 
   getCreators: TypedContractMethod<
     [],
@@ -264,17 +274,15 @@ export interface EurocupLegends extends BaseContract {
   >;
 
   getPrize: TypedContractMethod<
-    [_user: AddressLike, _ticket: AddressLike],
+    [_user: AddressLike, _country: AddressLike],
     [bigint],
     "view"
   >;
 
-  getTicketPrize: TypedContractMethod<[_ticket: AddressLike], [bigint], "view">;
-
   getWinners: TypedContractMethod<[], [[string, string, string]], "view">;
 
   isClaimed: TypedContractMethod<
-    [_user: AddressLike, _ticket: AddressLike],
+    [_country: AddressLike, _tokenId: BytesLike],
     [boolean],
     "view"
   >;
@@ -319,27 +327,31 @@ export interface EurocupLegends extends BaseContract {
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "claimPrize"
-  ): TypedContractMethod<[_ticket: AddressLike], [void], "nonpayable">;
+  ): TypedContractMethod<
+    [_recipient: AddressLike, _country: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "getCountryPrize"
+  ): TypedContractMethod<[_country: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "getCreators"
   ): TypedContractMethod<[], [IEurocupLegends.CreatorStructOutput[]], "view">;
   getFunction(
     nameOrSignature: "getPrize"
   ): TypedContractMethod<
-    [_user: AddressLike, _ticket: AddressLike],
+    [_user: AddressLike, _country: AddressLike],
     [bigint],
     "view"
   >;
-  getFunction(
-    nameOrSignature: "getTicketPrize"
-  ): TypedContractMethod<[_ticket: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "getWinners"
   ): TypedContractMethod<[], [[string, string, string]], "view">;
   getFunction(
     nameOrSignature: "isClaimed"
   ): TypedContractMethod<
-    [_user: AddressLike, _ticket: AddressLike],
+    [_country: AddressLike, _tokenId: BytesLike],
     [boolean],
     "view"
   >;
