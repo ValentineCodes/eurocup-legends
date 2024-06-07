@@ -58,6 +58,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.LSP7DigitalAssetCore__factory>;
     getContractFactory(
+      name: "ILSP8IdentifiableDigitalAsset",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ILSP8IdentifiableDigitalAsset__factory>;
+    getContractFactory(
+      name: "LSP8IdentifiableDigitalAsset",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LSP8IdentifiableDigitalAsset__factory>;
+    getContractFactory(
+      name: "LSP8IdentifiableDigitalAssetCore",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LSP8IdentifiableDigitalAssetCore__factory>;
+    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
@@ -78,6 +90,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IEurocupLegends__factory>;
     getContractFactory(
+      name: "IShirts",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IShirts__factory>;
+    getContractFactory(
       name: "ITickets",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ITickets__factory>;
@@ -89,6 +105,10 @@ declare module "hardhat/types/runtime" {
       name: "UPMock",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.UPMock__factory>;
+    getContractFactory(
+      name: "Shirts",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Shirts__factory>;
     getContractFactory(
       name: "Tickets",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -150,6 +170,21 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.LSP7DigitalAssetCore>;
     getContractAt(
+      name: "ILSP8IdentifiableDigitalAsset",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ILSP8IdentifiableDigitalAsset>;
+    getContractAt(
+      name: "LSP8IdentifiableDigitalAsset",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.LSP8IdentifiableDigitalAsset>;
+    getContractAt(
+      name: "LSP8IdentifiableDigitalAssetCore",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.LSP8IdentifiableDigitalAssetCore>;
+    getContractAt(
       name: "Ownable",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -175,6 +210,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IEurocupLegends>;
     getContractAt(
+      name: "IShirts",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IShirts>;
+    getContractAt(
       name: "ITickets",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -189,6 +229,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.UPMock>;
+    getContractAt(
+      name: "Shirts",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Shirts>;
     getContractAt(
       name: "Tickets",
       address: string | ethers.Addressable,
@@ -240,6 +285,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LSP7DigitalAssetCore>;
     deployContract(
+      name: "ILSP8IdentifiableDigitalAsset",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ILSP8IdentifiableDigitalAsset>;
+    deployContract(
+      name: "LSP8IdentifiableDigitalAsset",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LSP8IdentifiableDigitalAsset>;
+    deployContract(
+      name: "LSP8IdentifiableDigitalAssetCore",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LSP8IdentifiableDigitalAssetCore>;
+    deployContract(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Ownable>;
@@ -260,6 +317,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IEurocupLegends>;
     deployContract(
+      name: "IShirts",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IShirts>;
+    deployContract(
       name: "ITickets",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITickets>;
@@ -271,6 +332,10 @@ declare module "hardhat/types/runtime" {
       name: "UPMock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.UPMock>;
+    deployContract(
+      name: "Shirts",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Shirts>;
     deployContract(
       name: "Tickets",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -332,6 +397,21 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.LSP7DigitalAssetCore>;
     deployContract(
+      name: "ILSP8IdentifiableDigitalAsset",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ILSP8IdentifiableDigitalAsset>;
+    deployContract(
+      name: "LSP8IdentifiableDigitalAsset",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LSP8IdentifiableDigitalAsset>;
+    deployContract(
+      name: "LSP8IdentifiableDigitalAssetCore",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LSP8IdentifiableDigitalAssetCore>;
+    deployContract(
       name: "Ownable",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -357,6 +437,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IEurocupLegends>;
     deployContract(
+      name: "IShirts",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IShirts>;
+    deployContract(
       name: "ITickets",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -371,6 +456,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.UPMock>;
+    deployContract(
+      name: "Shirts",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Shirts>;
     deployContract(
       name: "Tickets",
       args: any[],

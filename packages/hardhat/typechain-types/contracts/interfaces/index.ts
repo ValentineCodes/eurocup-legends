@@ -2,4 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IEurocupLegends } from "./IEurocupLegends";
+export type { IShirts } from "./IShirts";
 export type { ITickets } from "./ITickets";

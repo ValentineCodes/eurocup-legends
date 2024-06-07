@@ -5,3 +5,4 @@ export * as lsp1Contracts from "./lsp1-contracts";
 export * as lsp17ContractextensionContracts from "./lsp17contractextension-contracts";
 export * as lsp4Contracts from "./lsp4-contracts";
 export * as lsp7Contracts from "./lsp7-contracts";
+export * as lsp8Contracts from "./lsp8-contracts";

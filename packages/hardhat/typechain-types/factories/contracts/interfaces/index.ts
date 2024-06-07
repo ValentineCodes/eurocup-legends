@@ -2,4 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export { IEurocupLegends__factory } from "./IEurocupLegends__factory";
+export { IShirts__factory } from "./IShirts__factory";
 export { ITickets__factory } from "./ITickets__factory";

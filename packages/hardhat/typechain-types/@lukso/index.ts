@@ -9,3 +9,5 @@ import type * as lsp4Contracts from "./lsp4-contracts";
 export type { lsp4Contracts };
 import type * as lsp7Contracts from "./lsp7-contracts";
 export type { lsp7Contracts };
+import type * as lsp8Contracts from "./lsp8-contracts";
+export type { lsp8Contracts };

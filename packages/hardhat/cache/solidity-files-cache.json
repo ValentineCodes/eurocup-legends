@@ -1695,6 +1695,508 @@
         "^0.8.4"
       ],
       "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp8-contracts/contracts/LSP8IdentifiableDigitalAssetCore.sol": {
+      "lastModificationDate": 1717588908166,
+      "contentHash": "c31ec7f22726a2f107d5897c6c4ff2f2",
+      "sourceName": "@lukso/lsp8-contracts/contracts/LSP8IdentifiableDigitalAssetCore.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp1-contracts/contracts/ILSP1UniversalReceiver.sol",
+        "./ILSP8IdentifiableDigitalAsset.sol",
+        "@lukso/lsp4-contracts/contracts/LSP4DigitalAssetMetadataCore.sol",
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+        "@openzeppelin/contracts/utils/introspection/ERC165Checker.sol",
+        "@lukso/lsp1-contracts/contracts/LSP1Utils.sol",
+        "./LSP8Errors.sol",
+        "@lukso/lsp1-contracts/contracts/LSP1Constants.sol",
+        "./LSP8Constants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.12"
+      ],
+      "artifacts": [
+        "LSP8IdentifiableDigitalAssetCore"
+      ]
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp8-contracts/contracts/ILSP8IdentifiableDigitalAsset.sol": {
+      "lastModificationDate": 1717588908152,
+      "contentHash": "9610dc9fd367e753037c3cbc6e6168f1",
+      "sourceName": "@lukso/lsp8-contracts/contracts/ILSP8IdentifiableDigitalAsset.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "@erc725/smart-contracts/contracts/interfaces/IERC725Y.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "ILSP8IdentifiableDigitalAsset"
+      ]
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp8-contracts/contracts/LSP8Errors.sol": {
+      "lastModificationDate": 1717588908163,
+      "contentHash": "470579428e700e54bf65ba1148204e5b",
+      "sourceName": "@lukso/lsp8-contracts/contracts/LSP8Errors.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp8-contracts/contracts/LSP8Constants.sol": {
+      "lastModificationDate": 1717588908163,
+      "contentHash": "1b2bfb0886b4d66041395d6e7fe49649",
+      "sourceName": "@lukso/lsp8-contracts/contracts/LSP8Constants.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp8-contracts/contracts/LSP8IdentifiableDigitalAsset.sol": {
+      "lastModificationDate": 1717588908164,
+      "contentHash": "937852273bef73ed70a077f983863dea",
+      "sourceName": "@lukso/lsp8-contracts/contracts/LSP8IdentifiableDigitalAsset.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "@erc725/smart-contracts/contracts/ERC725YCore.sol",
+        "./LSP8IdentifiableDigitalAssetCore.sol",
+        "@lukso/lsp4-contracts/contracts/LSP4DigitalAssetMetadata.sol",
+        "@lukso/lsp4-contracts/contracts/LSP4DigitalAssetMetadataCore.sol",
+        "@lukso/lsp17contractextension-contracts/contracts/LSP17Extendable.sol",
+        "@lukso/lsp2-contracts/contracts/LSP2Utils.sol",
+        "./LSP8Constants.sol",
+        "./LSP8Errors.sol",
+        "@lukso/lsp17contractextension-contracts/contracts/LSP17Constants.sol",
+        "@lukso/lsp17contractextension-contracts/contracts/LSP17Errors.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.12"
+      ],
+      "artifacts": [
+        "LSP8IdentifiableDigitalAsset"
+      ]
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/ILSP8IdentifiableDigitalAsset.sol": {
+      "lastModificationDate": 1717588903724,
+      "contentHash": "ffc1e74becc7c84b8b90ec24b25a043f",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/ILSP8IdentifiableDigitalAsset.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp8-contracts/contracts/ILSP8IdentifiableDigitalAsset.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/IShirts.sol": {
+      "lastModificationDate": 1717724818837,
+      "contentHash": "8bdef92ec8dbaba1c4bdbb201b3131a3",
+      "sourceName": "contracts/interfaces/IShirts.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/ILSP8IdentifiableDigitalAsset.sol"
+      ],
+      "versionPragmas": [
+        "0.8.20"
+      ],
+      "artifacts": [
+        "IShirts"
+      ]
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/tokens/Shirts.sol": {
+      "lastModificationDate": 1717724870291,
+      "contentHash": "679547721d97ff0f297baa74809ba60e",
+      "sourceName": "contracts/tokens/Shirts.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8IdentifiableDigitalAsset.sol",
+        "@lukso/lsp-smart-contracts/contracts/LSP4DigitalAssetMetadata/LSP4Constants.sol",
+        "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8Constants.sol",
+        "../interfaces/IShirts.sol",
+        "../utils/Errors.sol"
+      ],
+      "versionPragmas": [
+        "0.8.20"
+      ],
+      "artifacts": [
+        "Shirts"
+      ]
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8Constants.sol": {
+      "lastModificationDate": 1717588903827,
+      "contentHash": "44f2ec1a746cdb7ac5a0487808d7f25f",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8Constants.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp8-contracts/contracts/LSP8Constants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8IdentifiableDigitalAsset.sol": {
+      "lastModificationDate": 1717588903832,
+      "contentHash": "efac4be48b8e39bf40145ee62190e7f9",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8IdentifiableDigitalAsset.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp8-contracts/contracts/LSP8IdentifiableDigitalAsset.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.12"
+      ],
+      "artifacts": []
+    },
+    "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/node_modules/@lukso/lsp-smart-contracts/contracts/LSP4DigitalAssetMetadata/LSP4Constants.sol": {
+      "lastModificationDate": 1717588903867,
+      "contentHash": "4569ff522d0adc4a80dc96c073511b5f",
+      "sourceName": "@lukso/lsp-smart-contracts/contracts/LSP4DigitalAssetMetadata/LSP4Constants.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@lukso/lsp4-contracts/contracts/LSP4Constants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": []
     }
   }
 }
