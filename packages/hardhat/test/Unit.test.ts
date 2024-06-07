@@ -9,10 +9,14 @@ describe("Test", () => {
     let creator1: HardhatEthersSigner
     let creator2: HardhatEthersSigner
     let creator3: HardhatEthersSigner
+
     let valentine: UPMock
     let tanto: UPMock
+    let wafel: UPMock
     let valentineAddress: string
     let tantoAddress: string
+    let wafelAddress: string
+
     let creators: any
 
     let engShirts: Shirts
@@ -40,9 +44,11 @@ describe("Test", () => {
         const upMock = await ethers.getContractFactory("UPMock")
         valentine = await upMock.deploy()
         tanto = await upMock.deploy()
+        wafel = await upMock.deploy()
 
         valentineAddress = await valentine.getAddress()
         tantoAddress = await tanto.getAddress()
+        wafelAddress = await wafel.getAddress()
 
         creators = [{creator: creator1.address, share: 60}, {creator: creator2.address, share: 20}, {creator: creator3.address, share: 20}]
 
@@ -215,6 +221,29 @@ describe("Test", () => {
             expect(await eurocupLegends.getCountryPrize(engShirtsAddress)).to.eq(0)
 
             expect(await ethers.provider.getBalance(tantoAddress)).to.eq(tantoBal + tantoPrize)
+        })
+
+        it("reverts if tokens have been claimed", async () => {
+            await engShirts.mint(valentineAddress, 1, {value: ethers.parseEther((ENG_SHIRT_PRICE).toString())})
+            await engShirts.mint(tantoAddress, 1, {value: ethers.parseEther((ENG_SHIRT_PRICE).toString())})
+
+            // set winners
+            const engAddress = await engShirts.getAddress()
+            const frAddress = await frShirts.getAddress()
+            const grAddress = await grShirts.getAddress()
+
+            const winners = [engAddress, frAddress, grAddress]
+            const shares = [60, 30, 10]
+            // @ts-ignore
+            await eurocupLegends.setWinners(winners, shares)
+
+            const engShirtsAddress = await engShirts.getAddress()
+
+            await eurocupLegends.claimPrize(valentineAddress, engShirtsAddress)
+
+            await valentine.connect(owner).transfer(await engShirts.getAddress(), valentineAddress, wafelAddress, numberToBytes32(1), false, numberToBytes32(1))
+
+            await expect(eurocupLegends.claimPrize(wafelAddress, engShirtsAddress)).to.be.revertedWithCustomError(eurocupLegends, "AlreadyClaimedPrize")
         })
     })
 })
