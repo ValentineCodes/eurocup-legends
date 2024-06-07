@@ -139,11 +139,40 @@ describe("Test", () => {
             const frPrize = await eurocupLegends.getCountryPrize(await frShirts.getAddress())
             const grPrize = await eurocupLegends.getCountryPrize(await grShirts.getAddress())
 
-            console.log("ENG Prize => ", ethers.formatEther(engPrize), 'LYX')
-            console.log("FR Prize => ", ethers.formatEther(frPrize), 'LYX')
-            console.log("GR Prize => ", ethers.formatEther(grPrize), 'LYX')
-
             expect(engPrize + frPrize + grPrize).to.eq(await ethers.provider.getBalance(eurocupLegends))
+        })
+    })
+
+    describe("EurocupLegends.claimPrize()", () => {
+        async function mintShirts() {
+            await engShirts.mint(user, 3, {value: ethers.parseEther((ENG_SHIRT_PRICE * 3).toString())})
+            await frShirts.mint(user, 3, {value: ethers.parseEther((FR_SHIRT_PRICE * 3).toString())})
+            await grShirts.mint(user, 3, {value: ethers.parseEther((GR_SHIRT_PRICE * 3).toString())})
+        }
+
+        async function setWinners() {
+            await mintShirts()
+
+            const engAddress = await engShirts.getAddress()
+            const frAddress = await frShirts.getAddress()
+            const grAddress = await grShirts.getAddress()
+
+            const winners = [engAddress, frAddress, grAddress]
+            const shares = [60, 30, 10]
+            // @ts-ignore
+            await eurocupLegends.setWinners(winners, shares)
+        }
+
+        it("sends prize to user", async () => {
+            await setWinners()
+
+            const country = await engShirts.getAddress()
+            const prize = await eurocupLegends.getPrize(user, country)
+
+            const prevUserBal = await ethers.provider.getBalance(user)
+            await eurocupLegends.claimPrize(user, country)
+
+            expect(await ethers.provider.getBalance(user)).to.eq(prevUserBal + prize)
         })
     })
 })
