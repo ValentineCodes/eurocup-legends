@@ -15,6 +15,8 @@ import {
 import {_INTERFACEID_LSP1} from "@lukso/lsp-smart-contracts/contracts/LSP1UniversalReceiver/LSP1Constants.sol";
 import {_INTERFACEID_LSP0} from "@lukso/lsp-smart-contracts/contracts/LSP0ERC725Account/LSP0Constants.sol";
 
+import {IShirts} from "../interfaces/IShirts.sol";
+
 interface BPunX {
     function mint(uint256 _amount) external payable;
 }
@@ -51,8 +53,15 @@ contract UPMock is ERC165, ILSP1UniversalReceiver {
         // always return true (just for testing)
         return 0x1626ba7e;
     }
-    function mint(address _bpunx, uint256 _amount) external payable {
-        BPunX(_bpunx).mint{value: msg.value}(_amount);
+    function transfer(
+        address shirts,
+        address from,
+        address to,
+        bytes32 tokenId,
+        bool force,
+        bytes memory data
+    ) external {
+        IShirts(shirts).transfer(from, to, tokenId, force, data);
     }
     function fund() external payable {}
     function getBalance() external view returns (uint256) {

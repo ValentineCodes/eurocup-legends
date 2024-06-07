@@ -29,8 +29,8 @@ export interface UPMockInterface extends Interface {
       | "fund"
       | "getBalance"
       | "isValidSignature"
-      | "mint"
       | "supportsInterface"
+      | "transfer"
       | "universalReceiver"
   ): FunctionFragment;
 
@@ -46,12 +46,19 @@ export interface UPMockInterface extends Interface {
     values: [BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "mint",
-    values: [AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transfer",
+    values: [
+      AddressLike,
+      AddressLike,
+      AddressLike,
+      BytesLike,
+      boolean,
+      BytesLike
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "universalReceiver",
@@ -64,11 +71,11 @@ export interface UPMockInterface extends Interface {
     functionFragment: "isValidSignature",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "universalReceiver",
     data: BytesLike
@@ -156,16 +163,23 @@ export interface UPMock extends BaseContract {
     "view"
   >;
 
-  mint: TypedContractMethod<
-    [_bpunx: AddressLike, _amount: BigNumberish],
-    [void],
-    "payable"
-  >;
-
   supportsInterface: TypedContractMethod<
     [interfaceId: BytesLike],
     [boolean],
     "view"
+  >;
+
+  transfer: TypedContractMethod<
+    [
+      shirts: AddressLike,
+      from: AddressLike,
+      to: AddressLike,
+      tokenId: BytesLike,
+      force: boolean,
+      data: BytesLike
+    ],
+    [void],
+    "nonpayable"
   >;
 
   universalReceiver: TypedContractMethod<
@@ -188,15 +202,22 @@ export interface UPMock extends BaseContract {
     nameOrSignature: "isValidSignature"
   ): TypedContractMethod<[arg0: BytesLike, arg1: BytesLike], [string], "view">;
   getFunction(
-    nameOrSignature: "mint"
-  ): TypedContractMethod<
-    [_bpunx: AddressLike, _amount: BigNumberish],
-    [void],
-    "payable"
-  >;
-  getFunction(
     nameOrSignature: "supportsInterface"
   ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "transfer"
+  ): TypedContractMethod<
+    [
+      shirts: AddressLike,
+      from: AddressLike,
+      to: AddressLike,
+      tokenId: BytesLike,
+      force: boolean,
+      data: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "universalReceiver"
   ): TypedContractMethod<
