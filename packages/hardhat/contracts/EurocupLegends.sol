@@ -66,8 +66,11 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
      */
     function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _shares) external onlyOwner {
         if(s_isMintOpen) {
+            // Close mint before setting winners
             s_isMintOpen = false;
         }
+
+        // Set the winners and the prize for each winner
         for(uint256 i; i < MAX_WINNERS; i++) {
             address winner = _winners[i];
             uint256 prize = (address(this).balance * _shares[i]) / SHARE_PRECISION;
@@ -80,13 +83,15 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
     }
 
     /**
-        @notice Sends prize to {_recipient} based on amount of shirts owned in the winning country
+        @notice Sends prize to {_recipient} based on amount of shirts owned in the winning {_country}
                 Anyone can claim prize for another
         @param _recipient Owner of the shirts to claim
         @param _country Address of the winning country
      */
     function claimPrize(address _recipient, address _country) external nonReentrant {
         if(s_winners.length != MAX_WINNERS) revert NoWinnersYet();
+
+        // sanity check
         if(_country == address(0)) revert ZeroAddress();
 
         uint256 countryPrize = s_prizes[_country];
@@ -99,7 +104,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         
         uint256 unclaimedShirts;
 
-        // filter claimed tokens
+        // filter claimed shirts. Ensure prize is calculated with unclaimed shirts only
         for(uint256 i; i < userTokenIdsLength; i++) {
             if(!s_isClaimed[_country][userTokenIds[i]]) {
                 s_isClaimed[_country][userTokenIds[i]] = true;
@@ -107,10 +112,12 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
             }
         }
 
+        // Ensure user has unclaimed shirts
         if(unclaimedShirts == 0) revert AlreadyClaimedPrize();
 
         uint256 totalClaimed = s_totalClaimed[_country];
 
+        // Total shirts that haven't been used to claim prize for the winning {_country}
         uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - totalClaimed;
 
         uint256 prize = (unclaimedShirts * countryPrize) / totalUnclaimedShirts;
@@ -118,6 +125,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         s_prizes[_country] = countryPrize - prize;
         s_totalClaimed[_country] = totalClaimed + unclaimedShirts;
 
+        // transfer prize to {_recipient}
         (bool success, ) = _recipient.call{value: prize}('');
         if(!success) revert TransferFailed();
 
@@ -132,16 +140,19 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
      */
     function getPrize(address _user, address _country) external view returns (uint256 _prize) {
         uint256 countryPrize = s_prizes[_country];
+
+        // Total shirts that haven't been used to claim prize for the winning {_country}
         uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - s_totalClaimed[_country];
 
         bytes32[] memory userTokenIds = IShirts(_country).tokenIdsOf(_user);
         uint256 userTokenIdsLength = userTokenIds.length;
 
+        // Ensure the user has shirts
         if(userTokenIdsLength == 0) revert NoShirts();
         
         uint256 unclaimedShirts;
 
-        // filter claimed tokens
+        // filter claimed shirts. Ensure prize is calculated with unclaimed shirts only
         for(uint256 i; i < userTokenIdsLength; i++) {
             if(!s_isClaimed[_country][userTokenIds[i]]) {
                 unclaimedShirts++;

@@ -49,15 +49,22 @@ contract Shirts is IShirts, LSP8 {
         address _recipient,
         uint256 _amount
     ) external payable {
+        // Cannot mint more than {MAX_SUPPLY}
         if(_existingTokens + _amount > MAX_SUPPLY) revert MintLimitExceeded();
+
+        // Cannot own more than {MAX_MINT}
         if(balanceOf(_recipient) + _amount > MAX_MINT) revert MintLimitExceeded();
+
+        // Ensure caller sends the right amount
         if(msg.value != i_price * _amount) revert InvalidMintPrice();
 
+        // Mint tokens to {_recipient}
         for(uint256 i; i < _amount; i++) {
             uint256 tokenId = _existingTokens + 1;
             _mint(_recipient, bytes32(tokenId), false, '');
         }
 
+        // Transfer cost to prize pool
         (bool success,) = i_prizePool.call{value: msg.value}('');
         if(!success) revert TransferFailed();
 
