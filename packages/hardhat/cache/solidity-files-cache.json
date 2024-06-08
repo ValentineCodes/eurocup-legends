@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/EurocupLegends.sol": {
-      "lastModificationDate": 1717759751978,
-      "contentHash": "07615a2297feee50cb6c4abd9aa8c829",
+      "lastModificationDate": 1717830115062,
+      "contentHash": "49ca5b4e26e1eccda89513a3522d1a3b",
       "sourceName": "contracts/EurocupLegends.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -92,8 +92,8 @@
       "artifacts": []
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/IEurocupLegends.sol": {
-      "lastModificationDate": 1717709538263,
-      "contentHash": "bfc4ba6434517de3f937be5bfaea865b",
+      "lastModificationDate": 1717830106734,
+      "contentHash": "607b12117f10a344f777c12d22d02b7b",
       "sourceName": "contracts/interfaces/IEurocupLegends.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1885,8 +1885,8 @@
       "artifacts": []
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/interfaces/IShirts.sol": {
-      "lastModificationDate": 1717724818837,
-      "contentHash": "8bdef92ec8dbaba1c4bdbb201b3131a3",
+      "lastModificationDate": 1717829907096,
+      "contentHash": "3fd0ed5f8150f35d34c0c3606d3649bb",
       "sourceName": "contracts/interfaces/IShirts.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1930,8 +1930,8 @@
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/tokens/Shirts.sol": {
-      "lastModificationDate": 1717724870291,
-      "contentHash": "679547721d97ff0f297baa74809ba60e",
+      "lastModificationDate": 1717829895836,
+      "contentHash": "86922ff790d913942e6ca7251f5a5b19",
       "sourceName": "contracts/tokens/Shirts.sol",
       "solcConfig": {
         "version": "0.8.20",

@@ -355,7 +355,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "price",
+        name: "_price",
         type: "uint256",
       },
     ],
@@ -368,7 +368,7 @@ const _abi = [
     outputs: [
       {
         internalType: "address",
-        name: "prizePool",
+        name: "_prizePool",
         type: "address",
       },
     ],

@@ -7,18 +7,34 @@ import {IEurocupLegends} from "./interfaces/IEurocupLegends.sol";
 import {IShirts} from "./interfaces/IShirts.sol";
 import "./utils/Errors.sol";
 
+/**
+    @author Eurocup Legends
+    @title EurocupLegends
+    @notice This contract serves as the prize pool for the European Cup Tournament stake
+            Admin can close minting at any time
+            Admin can set the winners of the tournament
+            Users can claim their prize after winners have been set
+ */
 contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
     uint256 public constant FEE_PERCENTAGE = 25;
     uint256 public constant SHARE_PRECISION = 100;
     uint256 public constant MAX_WINNERS = 3;
 
+    // list of creators and each of their share percentage
     Creator[] private s_creators;
+
+    // list of the winners - 1st place, Runner up and 3rd place
     address[3] private s_winners;
 
     bool private s_isMintOpen = true;
 
+    // prize for each winner 
     mapping(address country => uint256 prize) private s_prizes;
+
+    // determine if shirt has been used to claim prize
     mapping(address country => mapping(bytes32 tokenId => bool isClaimed)) private s_isClaimed;
+
+    // total shirts that have been used to claim prize for each country
     mapping(address country => uint256 totalClaimed) private s_totalClaimed;
 
     constructor(Creator[] memory _creators, address _owner) Ownable(_owner) {
@@ -32,11 +48,22 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         _;
     }
 
+    /**
+        @notice Open or close mint
+        @dev Can only be called by the Admin
+        @param _isMintOpen Updated mint status
+     */
     function setMintStatus(bool _isMintOpen) external onlyOwner {
         s_isMintOpen = _isMintOpen;
         emit MintStatus(_isMintOpen);
     }
 
+    /**
+        @notice Set the winners of the tournament and the prize share for each in order - 1st place, Runner up, and 3rd place
+        @dev Can only be called by Admin
+        @param _winners Address of winners
+        @param _shares Percentage share of each winner in order
+     */
     function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _shares) external onlyOwner {
         if(s_isMintOpen) {
             s_isMintOpen = false;
@@ -52,6 +79,12 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         emit WinnersSet(_winners);
     }
 
+    /**
+        @notice Sends prize to {_recipient} based on amount of shirts owned in the winning country
+                Anyone can claim prize for another
+        @param _recipient Owner of the shirts to claim
+        @param _country Address of the winning country
+     */
     function claimPrize(address _recipient, address _country) external nonReentrant {
         if(s_winners.length != MAX_WINNERS) revert NoWinnersYet();
         if(_country == address(0)) revert ZeroAddress();
@@ -91,7 +124,13 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         emit PrizeClaimed(_recipient, prize);
     }
 
-    function getPrize(address _user, address _country) external view returns (uint256) {
+    /**
+        @notice Gets the prize of {_user} for the winning {_country}
+        @param _user Owner of the Shirts
+        @param _country Address of winning country
+        @return _prize Prize of user for {_country}
+     */
+    function getPrize(address _user, address _country) external view returns (uint256 _prize) {
         uint256 countryPrize = s_prizes[_country];
         uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - s_totalClaimed[_country];
 
@@ -112,26 +151,54 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         return (unclaimedShirts * countryPrize) / totalUnclaimedShirts;
     }
 
-    function isMintOpen() external view returns (bool) {
+    /**
+        @notice Gets the mint status
+        @return _isMintOpen Returns `true` if mint is open and `false` otherwise
+     */
+    function isMintOpen() external view returns (bool _isMintOpen) {
         return s_isMintOpen;
     }
 
-    function isClaimed(address _country, bytes32 _tokenId) external view returns (bool) {
+    /**
+        @notice Determines if shirt has been used to claim prize
+        @param _country Address of winning country
+        @param _tokenId ID of shirt for the winning country
+        @return _isClaimed Return `true` if prize has been claimed and `false` otherwise
+     */
+    function isClaimed(address _country, bytes32 _tokenId) external view returns (bool _isClaimed) {
         return s_isClaimed[_country][_tokenId];
     }
 
-    function getCreators() external view returns (Creator[] memory) {
+    /**
+        @notice Gets the addresses and shares of the creators of Eurocup Legends
+        @return _creators Returns the creators of Eurocup Legends
+     */
+    function getCreators() external view returns (Creator[] memory _creators) {
         return s_creators;
     }
 
-    function getWinners() external view returns (address[3] memory) {
+    /**
+        @notice Gets the winners of the tournament in order - 1st place, Runner up and 3rd place
+        @return _winners Returns the addresses of the winners of the tournament
+     */
+    function getWinners() external view returns (address[3] memory _winners) {
         return s_winners;
     }
 
-    function getCountryPrize(address _country) public view returns (uint256) {
+    /**
+        @notice Gets the prize of {_country}
+        @param _country Address of winning country
+        @return _prize Returns the prize of the country
+     */
+    function getCountryPrize(address _country) external view returns (uint256 _prize) {
         return s_prizes[_country];
     }
 
+    /**
+        @notice Splits 25% of deposits between creators while the rest goes into the prize pool
+                It's disabled if mint is closed by Admin
+        @param _amount Amount deposited
+     */
     function _handleDeposit(uint256 _amount) private ifMintOpen {
         // 25% of deposits
         uint256 fees = (_amount * FEE_PERCENTAGE) / SHARE_PRECISION;

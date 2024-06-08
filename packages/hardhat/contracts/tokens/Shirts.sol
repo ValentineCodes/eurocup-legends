@@ -7,6 +7,12 @@ import {_LSP8_TOKENID_FORMAT_NUMBER, _LSP8_TOKEN_METADATA_BASE_URI} from '@lukso
 import {IShirts} from '../interfaces/IShirts.sol';
 import '../utils/Errors.sol';
 
+/**
+    @author Eurocup Legends
+    @title Shirts NFT
+    @notice An NFT contract for the countries in the European Cup Tournament
+            Users can mint a shirt for the right price
+ */
 contract Shirts is IShirts, LSP8 {
     uint256 public constant MAX_SUPPLY = 100;
     uint256 public constant MAX_MINT = 5;
@@ -30,6 +36,15 @@ contract Shirts is IShirts, LSP8 {
         i_price = _price;
     }
 
+    /**
+        @notice Mints {_amount} shirts to {_recipient} for the right price
+                Users can mint 5 max and 100 in total
+                Anyone can mint a shirt for another
+        @dev Price is transferred to the prize pool
+            25% is split between creators
+        @param _recipient Address of the recipient
+        @param _amount Amount of shirts to mint
+     */
     function mint(
         address _recipient,
         uint256 _amount
@@ -49,11 +64,13 @@ contract Shirts is IShirts, LSP8 {
         emit ShirtsMinted(_recipient, _amount);
     }
 
-    function getPrizePool() external view returns (address prizePool) {
+    /// @notice Returns the address of the prize pool
+    function getPrizePool() external view returns (address _prizePool) {
         return i_prizePool;
     }
 
-    function getPrice() external view returns (uint256 price) {
+    /// @notice Returns the price of each shirt
+    function getPrice() external view returns (uint256 _price) {
         return i_price;
     }
 }
