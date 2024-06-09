@@ -37,7 +37,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
     // total shirts that have been used to claim prize for each country
     mapping(address country => uint256 totalClaimed) private s_totalClaimed;
 
-    constructor(Creator[] memory _creators, address _owner) Ownable(_owner) {
+    constructor(Creator[] memory _creators, address _admin) Ownable(_admin) {
         for(uint256 i; i < _creators.length; i++) {
             s_creators.push(_creators[i]);
         }
