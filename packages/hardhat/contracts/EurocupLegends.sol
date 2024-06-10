@@ -2,7 +2,7 @@
 pragma solidity 0.8.20;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {IEurocupLegends} from "./interfaces/IEurocupLegends.sol";
 import {IShirts} from "./interfaces/IShirts.sol";
 import "./utils/Errors.sol";
@@ -28,23 +28,24 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
 
     bool private s_isMintOpen = true;
 
-    // prize for each winner 
+    // prize for each winner
     mapping(address country => uint256 prize) private s_prizes;
 
     // determine if shirt has been used to claim prize
-    mapping(address country => mapping(bytes32 tokenId => bool isClaimed)) private s_isClaimed;
+    mapping(address country => mapping(bytes32 tokenId => bool isClaimed))
+        private s_isClaimed;
 
     // total shirts that have been used to claim prize for each country
     mapping(address country => uint256 totalClaimed) private s_totalClaimed;
 
     constructor(Creator[] memory _creators, address _admin) Ownable(_admin) {
-        for(uint256 i; i < _creators.length; i++) {
+        for (uint256 i; i < _creators.length; i++) {
             s_creators.push(_creators[i]);
         }
     }
 
     modifier ifMintOpen() {
-        if(!s_isMintOpen) revert MintClosed();
+        if (!s_isMintOpen) revert MintClosed();
         _;
     }
 
@@ -64,19 +65,27 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         @param _winners Address of winners
         @param _shares Percentage share of each winner in order
      */
-    function setWinners(address[MAX_WINNERS] calldata _winners, uint256[MAX_WINNERS] calldata _shares) external onlyOwner {
-        if(s_isMintOpen) {
+    function setWinners(
+        address[MAX_WINNERS] calldata _winners,
+        uint256[MAX_WINNERS] calldata _shares
+    ) external onlyOwner {
+        if (s_isMintOpen) {
             // Close mint before setting winners
             s_isMintOpen = false;
         }
 
         // Set the winners and the prize for each winner
-        for(uint256 i; i < MAX_WINNERS; i++) {
+        for (uint256 i; i < MAX_WINNERS; i++) {
             address winner = _winners[i];
-            uint256 prize = (address(this).balance * _shares[i]) / SHARE_PRECISION;
+            uint256 prize = (address(this).balance * _shares[i]) /
+                SHARE_PRECISION;
 
-            s_winners[i] = winner;
-            s_prizes[winner] = prize;
+            if (IShirts(winner).totalSupply() == 0) {
+                _splitProfitAmongCreators(prize);
+            } else {
+                s_winners[i] = winner;
+                s_prizes[winner] = prize;
+            }
         }
 
         emit WinnersSet(_winners);
@@ -88,37 +97,43 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         @param _recipient Owner of the shirts to claim
         @param _country Address of the winning country
      */
-    function claimPrize(address _recipient, address _country) external nonReentrant {
-        if(s_winners.length != MAX_WINNERS) revert NoWinnersYet();
+    function claimPrize(
+        address _recipient,
+        address _country
+    ) external nonReentrant {
+        if (s_winners.length != MAX_WINNERS) revert NoWinnersYet();
 
         // sanity check
-        if(_country == address(0)) revert ZeroAddress();
+        if (_country == address(0)) revert ZeroAddress();
 
         uint256 countryPrize = s_prizes[_country];
-        if(countryPrize == 0) revert NoPrizeForThisCountry();
+        if (countryPrize == 0) revert NoPrizeForThisCountry();
 
-        bytes32[] memory userTokenIds = IShirts(_country).tokenIdsOf(_recipient);
+        bytes32[] memory userTokenIds = IShirts(_country).tokenIdsOf(
+            _recipient
+        );
         uint256 userTokenIdsLength = userTokenIds.length;
 
-        if(userTokenIdsLength == 0) revert NoShirts();
-        
+        if (userTokenIdsLength == 0) revert NoShirts();
+
         uint256 unclaimedShirts;
 
         // filter claimed shirts. Ensure prize is calculated with unclaimed shirts only
-        for(uint256 i; i < userTokenIdsLength; i++) {
-            if(!s_isClaimed[_country][userTokenIds[i]]) {
+        for (uint256 i; i < userTokenIdsLength; i++) {
+            if (!s_isClaimed[_country][userTokenIds[i]]) {
                 s_isClaimed[_country][userTokenIds[i]] = true;
                 unclaimedShirts++;
             }
         }
 
         // Ensure user has unclaimed shirts
-        if(unclaimedShirts == 0) revert AlreadyClaimedPrize();
+        if (unclaimedShirts == 0) revert AlreadyClaimedPrize();
 
         uint256 totalClaimed = s_totalClaimed[_country];
 
         // Total shirts that haven't been used to claim prize for the winning {_country}
-        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - totalClaimed;
+        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() -
+            totalClaimed;
 
         uint256 prize = (unclaimedShirts * countryPrize) / totalUnclaimedShirts;
 
@@ -126,8 +141,8 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         s_totalClaimed[_country] = totalClaimed + unclaimedShirts;
 
         // transfer prize to {_recipient}
-        (bool success, ) = _recipient.call{value: prize}('');
-        if(!success) revert TransferFailed();
+        (bool success, ) = _recipient.call{value: prize}("");
+        if (!success) revert TransferFailed();
 
         emit PrizeClaimed(_recipient, prize);
     }
@@ -138,23 +153,27 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         @param _country Address of winning country
         @return _prize Prize of user for {_country}
      */
-    function getPrize(address _user, address _country) external view returns (uint256 _prize) {
+    function getPrize(
+        address _user,
+        address _country
+    ) external view returns (uint256 _prize) {
         uint256 countryPrize = s_prizes[_country];
 
         // Total shirts that haven't been used to claim prize for the winning {_country}
-        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() - s_totalClaimed[_country];
+        uint256 totalUnclaimedShirts = IShirts(_country).totalSupply() -
+            s_totalClaimed[_country];
 
         bytes32[] memory userTokenIds = IShirts(_country).tokenIdsOf(_user);
         uint256 userTokenIdsLength = userTokenIds.length;
 
         // Ensure the user has shirts
-        if(userTokenIdsLength == 0) revert NoShirts();
-        
+        if (userTokenIdsLength == 0) revert NoShirts();
+
         uint256 unclaimedShirts;
 
         // filter claimed shirts. Ensure prize is calculated with unclaimed shirts only
-        for(uint256 i; i < userTokenIdsLength; i++) {
-            if(!s_isClaimed[_country][userTokenIds[i]]) {
+        for (uint256 i; i < userTokenIdsLength; i++) {
+            if (!s_isClaimed[_country][userTokenIds[i]]) {
                 unclaimedShirts++;
             }
         }
@@ -176,7 +195,10 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         @param _tokenId ID of shirt for the winning country
         @return _isClaimed Return `true` if prize has been claimed and `false` otherwise
      */
-    function isClaimed(address _country, bytes32 _tokenId) external view returns (bool _isClaimed) {
+    function isClaimed(
+        address _country,
+        bytes32 _tokenId
+    ) external view returns (bool _isClaimed) {
         return s_isClaimed[_country][_tokenId];
     }
 
@@ -201,8 +223,25 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         @param _country Address of winning country
         @return _prize Returns the prize of the country
      */
-    function getCountryPrize(address _country) external view returns (uint256 _prize) {
+    function getCountryPrize(
+        address _country
+    ) external view returns (uint256 _prize) {
         return s_prizes[_country];
+    }
+
+    function _splitProfitAmongCreators(uint256 _profit) private {
+        uint256 creatorsLength = s_creators.length;
+
+        // transfer fee to creators
+        for (uint256 i; i < creatorsLength; i++) {
+            Creator memory creator = s_creators[i];
+
+            uint256 creatorShare = (_profit * creator.share) / SHARE_PRECISION;
+
+            (bool success, ) = creator.creator.call{value: creatorShare}("");
+            if (!success)
+                revert FeeTransferFailed(creator.creator, creatorShare);
+        }
     }
 
     /**
@@ -214,17 +253,7 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
         // 25% of deposits
         uint256 fees = (_amount * FEE_PERCENTAGE) / SHARE_PRECISION;
 
-        uint256 creatorsLength = s_creators.length;
-
-        // transfer fee to creators
-        for(uint256 i; i < creatorsLength; i++) {
-            Creator memory creator = s_creators[i];
-
-            uint256 creatorShare = (fees * creator.share) / SHARE_PRECISION;
-
-            (bool success,) = creator.creator.call{value: creatorShare}("");
-            if(!success) revert FeeTransferFailed(creator.creator, creatorShare);
-        }
+        _splitProfitAmongCreators(fees);
     }
 
     receive() external payable {
