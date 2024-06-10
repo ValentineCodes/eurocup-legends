@@ -1,8 +1,7 @@
 import { expect } from "chai";
-import { deployments, ethers } from "hardhat";
+import { ethers } from "hardhat";
 import { Shirts, EurocupLegends, UPMock } from "../typechain-types";
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
-import {hexlify, zeroPadValue} from "ethers"
 
 describe("Test", () => {
     let owner: HardhatEthersSigner
@@ -56,6 +55,7 @@ describe("Test", () => {
 
         eurocupLegends = (await eurocupLegendsFactory.deploy(creators, owner))
         
+        const metadata = '0x00006f357c6a00203b81eb9683accb19f263165fc334d37ff991c20e497eed48da502eb385fd025d697066733a2f2f516d58514b6d694471644e5a3467714b35794a696f4634577a6a4658385061517a3944574b794d766f4451735234'
         const shirtsFactory = await ethers.getContractFactory("Shirts")
         engShirts = (await shirtsFactory.deploy(
             "England Shirts", 
@@ -69,14 +69,16 @@ describe("Test", () => {
             "FR", 
             owner,
             await eurocupLegends.getAddress(), 
-            ethers.parseEther("14"))
+            ethers.parseEther("14")),
+            metadata
         )
         grShirts = (await shirtsFactory.deploy(
             "Germany Shirts", 
             "GR", 
             owner,
             await eurocupLegends.getAddress(), 
-            ethers.parseEther("13"))
+            ethers.parseEther("13")),
+            metadata
         )
     })
 

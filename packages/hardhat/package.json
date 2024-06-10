@@ -14,7 +14,10 @@
     "format": "prettier --write ./*.ts ./deploy/**/*.ts ./scripts/**/*.ts ./test/**/*.ts",
     "test": "hardhat test --network hardhat",
     "verify": "hardhat etherscan-verify",
-    "hardhat-verify": "hardhat verify"
+    "hardhat-verify": "hardhat verify",
+    "deployECL": "hardhat deploy --tags Eurocuplegends",
+    "generateMetadata": "hardhat run scripts/generateMetadata.ts",
+    "deployShirts": "hardhat deploy --tags Shirts"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.7.0",

@@ -9,6 +9,9 @@
     ]
   },
   "scripts": {
+    "deployECL": "yarn workspace @se-2/hardhat deployECL",
+    "generateMetadata": "yarn workspace @se-2/hardhat generateMetadata",
+    "deployShirts": "yarn workspace @se-2/hardhat deployShirts",
     "account": "yarn workspace @se-2/hardhat account",
     "chain": "yarn workspace @se-2/hardhat chain",
     "fork": "yarn workspace @se-2/hardhat fork",

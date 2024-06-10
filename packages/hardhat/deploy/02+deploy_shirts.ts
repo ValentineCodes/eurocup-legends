@@ -1,6 +1,5 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
 /**
@@ -26,13 +25,14 @@ const deployShirts: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   // args
   const name = "England Shirts"
   const symbol = "ENG"
-  const owner = "0x..."
-  const prizePool = '0x...'
+  const owner = "0x413Bc0E7b6D4686C1D55CCFeBC7b5EDb91c31095"
+  const prizePool = '0x0cdb6F0B99b3617323a09BB1b8ea38619D55B2a9'
   const price = ethers.parseEther("15")
+  const metadata = '0x00006f357c6a00203b81eb9683accb19f263165fc334d37ff991c20e497eed48da502eb385fd025d697066733a2f2f516d58514b6d694471644e5a3467714b35794a696f4634577a6a4658385061517a3944574b794d766f4451735234'
   await deploy("Shirts", {
     from: deployer,
     // Contract constructor arguments
-    args: [name, symbol, owner, prizePool, price],
+    args: [name, symbol, owner, prizePool, price, metadata],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

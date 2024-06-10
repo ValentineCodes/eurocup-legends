@@ -15,6 +15,8 @@ const shirt = {
 
 const ECL_ADDRESS = ethers.ZeroAddress /* paste Eurocup Legends address */
 
+const metadata = '0x00006f357c6a00203b81eb9683accb19f263165fc334d37ff991c20e497eed48da502eb385fd025d697066733a2f2f516d58514b6d694471644e5a3467714b35794a696f4634577a6a4658385061517a3944574b794d766f4451735234'
+
 async function deployShirts() {
   // UP controller used for deployment
   const [deployer] = await ethers.getSigners();
@@ -34,13 +36,14 @@ async function deployShirts() {
 
   // Encode constructor parameters
   const encodedShirtConstructorParams = abiEncoder.encode(
-    ['string', 'string', 'address', 'address', 'uint256'],
+    ['string', 'string', 'address', 'address', 'uint256', 'bytes'],
     [
       shirt.name, // token name
       shirt.symbol, // token symbol
       shirt.owner, // token owner
       ECL_ADDRESS, // prize pool
       shirt.price, // shirt price
+      metadata
     ],
   );
 
