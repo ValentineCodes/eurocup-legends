@@ -1930,8 +1930,8 @@
       ]
     },
     "/Users/macbookpro/Desktop/projects/eurocup-legends/packages/hardhat/contracts/tokens/Shirts.sol": {
-      "lastModificationDate": 1717931382768,
-      "contentHash": "78138af14bf93c5b562c64bb61ee621f",
+      "lastModificationDate": 1718059505209,
+      "contentHash": "c99dd5cfd58105ee10e82bb7d468cdad",
       "sourceName": "contracts/tokens/Shirts.sol",
       "solcConfig": {
         "version": "0.8.20",

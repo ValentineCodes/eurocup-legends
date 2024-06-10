@@ -2,8 +2,8 @@
 pragma solidity 0.8.20;
 
 import {LSP8IdentifiableDigitalAsset as LSP8} from "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8IdentifiableDigitalAsset.sol";
-import {_LSP4_TOKEN_TYPE_NFT, _LSP4_METADATA_KEY} from "@lukso/lsp-smart-contracts/contracts/LSP4DigitalAssetMetadata/LSP4Constants.sol";
-import {_LSP8_TOKENID_FORMAT_NUMBER, _LSP8_TOKEN_METADATA_BASE_URI} from "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8Constants.sol";
+import {_LSP4_TOKEN_TYPE_NFT} from "@lukso/lsp-smart-contracts/contracts/LSP4DigitalAssetMetadata/LSP4Constants.sol";
+import {_LSP8_TOKENID_FORMAT_NUMBER} from "@lukso/lsp-smart-contracts/contracts/LSP8IdentifiableDigitalAsset/LSP8Constants.sol";
 import {IShirts} from "../interfaces/IShirts.sol";
 import "../utils/Errors.sol";
 
@@ -18,15 +18,13 @@ contract Shirts is IShirts, LSP8 {
     uint256 public constant MAX_MINT = 5;
     address private immutable i_prizePool;
     uint256 private immutable i_price;
-    bytes private metadata;
 
     constructor(
         string memory _name,
         string memory _symbol,
         address _owner,
         address _prizePool,
-        uint256 _price,
-        bytes memory _metadata
+        uint256 _price
     )
         LSP8(
             _name,
@@ -38,7 +36,6 @@ contract Shirts is IShirts, LSP8 {
     {
         i_prizePool = _prizePool;
         i_price = _price;
-        metadata = _metadata;
     }
 
     /**
@@ -65,7 +62,6 @@ contract Shirts is IShirts, LSP8 {
         for (uint256 i; i < _amount; i++) {
             bytes32 tokenId = bytes32(_existingTokens + 1);
             _mint(_recipient, tokenId, false, "");
-            setDataForTokenId(tokenId, _LSP4_METADATA_KEY, metadata);
         }
 
         // Transfer cost to prize pool
