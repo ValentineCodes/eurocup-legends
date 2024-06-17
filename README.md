@@ -20,7 +20,7 @@ Before you begin, you need to install the following tools:
 > Clone this repo & install dependencies
 
 ```
-git clone https://github.com/scaffold-eth/sports-legends.git
+git clone https://github.com/ValentineCodes/sports-legends.git
 cd sports-legends
 yarn install
 ```
@@ -30,7 +30,7 @@ yarn install
 ```sh
 yarn test
 ```
-> In the same terminal, deploy contracts to Sepolia testnet
+> In the same terminal, deploy contracts
 
 Must set the enviromnent variables in hardhat as specified in `.env.example`
 
