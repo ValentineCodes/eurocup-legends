@@ -3,3 +3,4 @@
 /* eslint-disable */
 export type { IEurocupLegends } from "./IEurocupLegends";
 export type { IShirts } from "./IShirts";
+export type { ISportsLegends } from "./ISportsLegends";

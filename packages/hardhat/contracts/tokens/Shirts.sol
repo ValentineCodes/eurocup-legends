@@ -8,7 +8,7 @@ import {IShirts} from "../interfaces/IShirts.sol";
 import "../utils/Errors.sol";
 
 /**
-    @author Eurocup Legends
+    @author Sports Legends
     @title Shirts NFT
     @notice An NFT contract for the countries in the European Cup Tournament
             Users can mint a shirt for the right price

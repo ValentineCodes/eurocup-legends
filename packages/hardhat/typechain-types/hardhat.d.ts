@@ -98,6 +98,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IShirts__factory>;
     getContractFactory(
+      name: "ISportsLegends",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ISportsLegends__factory>;
+    getContractFactory(
       name: "BPunX",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BPunX__factory>;
@@ -105,6 +109,10 @@ declare module "hardhat/types/runtime" {
       name: "UPMock",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.UPMock__factory>;
+    getContractFactory(
+      name: "SportsLegends",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SportsLegends__factory>;
     getContractFactory(
       name: "Shirts",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -216,6 +224,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IShirts>;
     getContractAt(
+      name: "ISportsLegends",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ISportsLegends>;
+    getContractAt(
       name: "BPunX",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -225,6 +238,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.UPMock>;
+    getContractAt(
+      name: "SportsLegends",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SportsLegends>;
     getContractAt(
       name: "Shirts",
       address: string | ethers.Addressable,
@@ -316,6 +334,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IShirts>;
     deployContract(
+      name: "ISportsLegends",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ISportsLegends>;
+    deployContract(
       name: "BPunX",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BPunX>;
@@ -323,6 +345,10 @@ declare module "hardhat/types/runtime" {
       name: "UPMock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.UPMock>;
+    deployContract(
+      name: "SportsLegends",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SportsLegends>;
     deployContract(
       name: "Shirts",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -434,6 +460,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IShirts>;
     deployContract(
+      name: "ISportsLegends",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ISportsLegends>;
+    deployContract(
       name: "BPunX",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -443,6 +474,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.UPMock>;
+    deployContract(
+      name: "SportsLegends",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SportsLegends>;
     deployContract(
       name: "Shirts",
       args: any[],

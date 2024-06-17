@@ -30,8 +30,8 @@ async function deployECL() {
     UP_ADDRESS as string,
   );
 
-  // Create custom bytecode for the EurocupLegends deployment
-  const eclBytecode = (await ethers.getContractFactory('EurocupLegends'))
+  // Create custom bytecode for the SportsLegends deployment
+  const eclBytecode = (await ethers.getContractFactory('SportsLegends'))
     .bytecode;
 
   // Encode constructor parameters
@@ -56,7 +56,7 @@ async function deployECL() {
   const encodedConstructorParams = abiEncoder.encode(
     [`${creatorType.type}[]`, 'address'],
     [
-      creators, // Eurocup Legends creators' addresses and shares
+      creators, // Sports Legends creators' addresses and shares
       admin, // admin
     ],
   );
@@ -76,7 +76,7 @@ async function deployECL() {
     { gasLimit: 10000000 }
   );
 
-  // Deploy EurocupLegends conract by the Universal Profile
+  // Deploy SportsLegends conract by the Universal Profile
   const tx = await universalProfile
   .connect(signer)
   .getFunction("execute")(
@@ -90,7 +90,7 @@ async function deployECL() {
   // Wait for the transaction to be included in a block
   await tx.wait();
 
-  console.log("Eurocup Legends deployed at: ", eclAddress)
+  console.log("Sports Legends deployed at: ", eclAddress)
 }
 
 deployECL()

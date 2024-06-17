@@ -2,12 +2,12 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
 /**
- * Deploys a contract named "EurocupLegends" using the deployer account and
+ * Deploys a contract named "SportsLegends" using the deployer account and
  * constructor arguments set to the deployer address
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-const deployEurocupLegends: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deploySportsLegends: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -30,7 +30,7 @@ const deployEurocupLegends: DeployFunction = async function (hre: HardhatRuntime
   const creators: Creator[] = [{creator: '0x413Bc0E7b6D4686C1D55CCFeBC7b5EDb91c31095', share: 100}]
   const admin = '0x413Bc0E7b6D4686C1D55CCFeBC7b5EDb91c31095'
 
-  await deploy("EurocupLegends", {
+  await deploy("SportsLegends", {
     from: deployer,
     // Contract constructor arguments
     args: [creators, admin],
@@ -41,8 +41,8 @@ const deployEurocupLegends: DeployFunction = async function (hre: HardhatRuntime
   });
 };
 
-export default deployEurocupLegends;
+export default deploySportsLegends;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
-// e.g. yarn deploy --tags EurocupLegends
-deployEurocupLegends.tags = ["EurocupLegends"];
+// e.g. yarn deploy --tags SportsLegends
+deploySportsLegends.tags = ["SportsLegends"];

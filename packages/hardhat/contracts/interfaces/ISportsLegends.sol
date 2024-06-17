@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-interface IEurocupLegends {
+interface ISportsLegends {
     struct Creator {
         address creator;
         uint256 share;
@@ -24,7 +24,10 @@ interface IEurocupLegends {
         @param _winners Address of winners
         @param _shares Percentage share of each winner in order
      */
-    function setWinners(address[3] calldata _winners, uint256[3] calldata _shares) external;
+    function setWinners(
+        address[3] calldata _winners,
+        uint256[3] calldata _shares
+    ) external;
 
     /**
         @notice Sends prize to {_recipient} based on amount of shirts owned in the winning country
@@ -40,7 +43,10 @@ interface IEurocupLegends {
         @param _country Address of winning country
         @return _prize Prize of user for {_country}
      */
-    function getPrize(address _user, address _country) external view returns (uint256 _prize);
+    function getPrize(
+        address _user,
+        address _country
+    ) external view returns (uint256 _prize);
 
     /**
         @notice Gets the mint status
@@ -54,11 +60,14 @@ interface IEurocupLegends {
         @param _tokenId ID of shirt for the winning country
         @return _isClaimed Return `true` if prize has been claimed and `false` otherwise
      */
-    function isClaimed(address _country, bytes32 _tokenId) external view returns (bool _isClaimed);
+    function isClaimed(
+        address _country,
+        bytes32 _tokenId
+    ) external view returns (bool _isClaimed);
 
     /**
-        @notice Gets the addresses and shares of the creators of Eurocup Legends
-        @return _creators Returns the creators of Eurocup Legends
+        @notice Gets the addresses and shares of the creators of Sports Legends
+        @return _creators Returns the creators of Sports Legends
      */
     function getCreators() external view returns (Creator[] memory _creators);
 
@@ -73,5 +82,7 @@ interface IEurocupLegends {
         @param _country Address of winning country
         @return _prize Returns the prize of the country
      */
-    function getCountryPrize(address _country) external view returns (uint256 _prize);
+    function getCountryPrize(
+        address _country
+    ) external view returns (uint256 _prize);
 }

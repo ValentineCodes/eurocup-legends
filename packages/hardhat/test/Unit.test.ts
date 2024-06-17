@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Shirts, EurocupLegends, UPMock } from "../typechain-types";
+import { Shirts, SportsLegends, UPMock } from "../typechain-types";
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 
 describe("Test", () => {
@@ -21,7 +21,7 @@ describe("Test", () => {
     let engShirts: Shirts
     let frShirts: Shirts
     let grShirts: Shirts
-    let eurocupLegends: EurocupLegends
+    let sportsLegends: SportsLegends
 
     const ENG_SHIRT_PRICE = 15
     const FR_SHIRT_PRICE = 14
@@ -51,30 +51,30 @@ describe("Test", () => {
 
         creators = [{creator: creator1.address, share: 60}, {creator: creator2.address, share: 20}, {creator: creator3.address, share: 20}]
 
-        const eurocupLegendsFactory = await ethers.getContractFactory("EurocupLegends")
+        const sportsLegendsFactory = await ethers.getContractFactory("SportsLegends")
 
-        eurocupLegends = (await eurocupLegendsFactory.deploy(creators, owner))
+        sportsLegends = (await sportsLegendsFactory.deploy(creators, owner))
         
         const shirtsFactory = await ethers.getContractFactory("Shirts")
         engShirts = (await shirtsFactory.deploy(
             "England Shirts", 
             "ENG", 
             owner,
-            await eurocupLegends.getAddress(), 
+            await sportsLegends.getAddress(), 
             ethers.parseEther("15"))
         )
         frShirts = (await shirtsFactory.deploy(
             "France Shirts", 
             "FR", 
             owner,
-            await eurocupLegends.getAddress(), 
+            await sportsLegends.getAddress(), 
             ethers.parseEther("14"))
         )
         grShirts = (await shirtsFactory.deploy(
             "Germany Shirts", 
             "GR", 
             owner,
-            await eurocupLegends.getAddress(), 
+            await sportsLegends.getAddress(), 
             ethers.parseEther("13"))
         )
     })
@@ -106,7 +106,7 @@ describe("Test", () => {
             await engShirts.mint(valentineAddress, 3, {value: ethers.parseEther((engShirtsCost).toString())})
 
             // prize pool keeps 75%
-            const prizePoolBalance = await ethers.provider.getBalance(eurocupLegends)
+            const prizePoolBalance = await ethers.provider.getBalance(sportsLegends)
             expect(prizePoolBalance.toString()).to.eq(ethers.parseEther((prize).toString()))
 
             // creators split 25%
@@ -118,13 +118,13 @@ describe("Test", () => {
             }
         })
         it("reverts if mint is closed", async () => {
-            await eurocupLegends.setMintStatus(false)
+            await sportsLegends.setMintStatus(false)
 
-            await expect(engShirts.mint(valentineAddress, 1, {value: ethers.parseEther((ENG_SHIRT_PRICE).toString())})).to.be.revertedWithCustomError(eurocupLegends, "TransferFailed")
+            await expect(engShirts.mint(valentineAddress, 1, {value: ethers.parseEther((ENG_SHIRT_PRICE).toString())})).to.be.revertedWithCustomError(sportsLegends, "TransferFailed")
         })
     })
 
-    describe("EurocupLegends.setWinners()", () => {
+    describe("SportsLegends.setWinners()", () => {
         async function mintShirts() {
             await engShirts.mint(valentineAddress, 3, {value: ethers.parseEther((ENG_SHIRT_PRICE * 3).toString())})
             await frShirts.mint(valentineAddress, 3, {value: ethers.parseEther((FR_SHIRT_PRICE * 3).toString())})
@@ -141,26 +141,26 @@ describe("Test", () => {
             const winners = [engAddress, frAddress, grAddress]
             const shares = [60, 30, 10]
             // @ts-ignore
-            await eurocupLegends.setWinners(winners, shares)
+            await sportsLegends.setWinners(winners, shares)
         }
 
         it("closes mint", async () => {
             await setWinners()
 
-            expect(await eurocupLegends.isMintOpen()).to.be.false
+            expect(await sportsLegends.isMintOpen()).to.be.false
         })
         it("stores prize of each country", async () => {
             await setWinners()
 
-            const engPrize = await eurocupLegends.getCountryPrize(await engShirts.getAddress())
-            const frPrize = await eurocupLegends.getCountryPrize(await frShirts.getAddress())
-            const grPrize = await eurocupLegends.getCountryPrize(await grShirts.getAddress())
+            const engPrize = await sportsLegends.getCountryPrize(await engShirts.getAddress())
+            const frPrize = await sportsLegends.getCountryPrize(await frShirts.getAddress())
+            const grPrize = await sportsLegends.getCountryPrize(await grShirts.getAddress())
 
-            expect(engPrize + frPrize + grPrize).to.eq(await ethers.provider.getBalance(eurocupLegends))
+            expect(engPrize + frPrize + grPrize).to.eq(await ethers.provider.getBalance(sportsLegends))
         })
     })
 
-    describe("EurocupLegends.claimPrize()", () => {
+    describe("SportsLegends.claimPrize()", () => {
         async function mintShirts() {
             await engShirts.mint(valentineAddress, 3, {value: ethers.parseEther((ENG_SHIRT_PRICE * 3).toString())})
             await frShirts.mint(valentineAddress, 3, {value: ethers.parseEther((FR_SHIRT_PRICE * 3).toString())})
@@ -177,17 +177,17 @@ describe("Test", () => {
             const winners = [engAddress, frAddress, grAddress]
             const shares = [60, 30, 10]
             // @ts-ignore
-            await eurocupLegends.setWinners(winners, shares)
+            await sportsLegends.setWinners(winners, shares)
         }
 
         it("sends prize to valentine", async () => {
             await setWinners()
 
             const country = await engShirts.getAddress()
-            const prize = await eurocupLegends.getPrize(valentineAddress, country)
+            const prize = await sportsLegends.getPrize(valentineAddress, country)
 
             const prevUserBal = await ethers.provider.getBalance(valentineAddress)
-            await eurocupLegends.claimPrize(valentineAddress, country)
+            await sportsLegends.claimPrize(valentineAddress, country)
 
             expect(await ethers.provider.getBalance(valentineAddress)).to.eq(prevUserBal + prize)
         })
@@ -204,20 +204,20 @@ describe("Test", () => {
             const winners = [engAddress, frAddress, grAddress]
             const shares = [60, 30, 10]
             // @ts-ignore
-            await eurocupLegends.setWinners(winners, shares)
+            await sportsLegends.setWinners(winners, shares)
 
             const engShirtsAddress = await engShirts.getAddress()
 
-            await eurocupLegends.claimPrize(valentineAddress, engShirtsAddress)
+            await sportsLegends.claimPrize(valentineAddress, engShirtsAddress)
 
             const tokenId = numberToBytes32(1)
             await valentine.connect(owner).transfer(await engShirts.getAddress(), valentineAddress, tantoAddress, tokenId, false, tokenId)
 
-            const tantoPrize = await eurocupLegends.getPrize(tantoAddress, engShirtsAddress)
+            const tantoPrize = await sportsLegends.getPrize(tantoAddress, engShirtsAddress)
             const tantoBal = await ethers.provider.getBalance(tantoAddress)
-            await eurocupLegends.claimPrize(tantoAddress, engShirtsAddress)
+            await sportsLegends.claimPrize(tantoAddress, engShirtsAddress)
 
-            expect(await eurocupLegends.getCountryPrize(engShirtsAddress)).to.eq(0)
+            expect(await sportsLegends.getCountryPrize(engShirtsAddress)).to.eq(0)
 
             expect(await ethers.provider.getBalance(tantoAddress)).to.eq(tantoBal + tantoPrize)
         })
@@ -234,15 +234,15 @@ describe("Test", () => {
             const winners = [engAddress, frAddress, grAddress]
             const shares = [60, 30, 10]
             // @ts-ignore
-            await eurocupLegends.setWinners(winners, shares)
+            await sportsLegends.setWinners(winners, shares)
 
             const engShirtsAddress = await engShirts.getAddress()
 
-            await eurocupLegends.claimPrize(valentineAddress, engShirtsAddress)
+            await sportsLegends.claimPrize(valentineAddress, engShirtsAddress)
 
             await valentine.connect(owner).transfer(await engShirts.getAddress(), valentineAddress, wafelAddress, numberToBytes32(1), false, numberToBytes32(1))
 
-            await expect(eurocupLegends.claimPrize(wafelAddress, engShirtsAddress)).to.be.revertedWithCustomError(eurocupLegends, "AlreadyClaimedPrize")
+            await expect(sportsLegends.claimPrize(wafelAddress, engShirtsAddress)).to.be.revertedWithCustomError(sportsLegends, "AlreadyClaimedPrize")
         })
     })
 })

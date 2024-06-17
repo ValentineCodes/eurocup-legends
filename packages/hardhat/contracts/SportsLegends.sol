@@ -3,19 +3,19 @@ pragma solidity 0.8.20;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {IEurocupLegends} from "./interfaces/IEurocupLegends.sol";
+import {ISportsLegends} from "./interfaces/ISportsLegends.sol";
 import {IShirts} from "./interfaces/IShirts.sol";
 import "./utils/Errors.sol";
 
 /**
-    @author Eurocup Legends
-    @title EurocupLegends
+    @author Sports Legends
+    @title SportsLegends
     @notice This contract serves as the prize pool for the European Cup Tournament stake
             Admin can close minting at any time
             Admin can set the winners of the tournament
             Users can claim their prize after winners have been set
  */
-contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
+contract SportsLegends is ISportsLegends, Ownable, ReentrancyGuard {
     uint256 public constant FEE_PERCENTAGE = 25;
     uint256 public constant SHARE_PRECISION = 100;
     uint256 public constant MAX_WINNERS = 3;
@@ -203,8 +203,8 @@ contract EurocupLegends is IEurocupLegends, Ownable, ReentrancyGuard {
     }
 
     /**
-        @notice Gets the addresses and shares of the creators of Eurocup Legends
-        @return _creators Returns the creators of Eurocup Legends
+        @notice Gets the addresses and shares of the creators of Sports Legends
+        @return _creators Returns the creators of Sports Legends
      */
     function getCreators() external view returns (Creator[] memory _creators) {
         return s_creators;

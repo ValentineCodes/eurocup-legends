@@ -15,7 +15,7 @@
     "test": "hardhat test --network hardhat",
     "verify": "hardhat etherscan-verify",
     "hardhat-verify": "hardhat verify",
-    "deployECL": "hardhat deploy --tags Eurocuplegends",
+    "deployECL": "hardhat deploy --tags Sportslegends",
     "generateMetadata": "hardhat run scripts/generateMetadata.ts",
     "deployShirts": "hardhat deploy --tags Shirts"
   },

@@ -8,3 +8,4 @@ export type { mocks };
 import type * as tokens from "./tokens";
 export type { tokens };
 export type { EurocupLegends } from "./EurocupLegends";
+export type { SportsLegends } from "./SportsLegends";

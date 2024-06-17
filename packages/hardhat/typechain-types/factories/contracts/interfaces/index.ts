@@ -3,3 +3,4 @@
 /* eslint-disable */
 export { IEurocupLegends__factory } from "./IEurocupLegends__factory";
 export { IShirts__factory } from "./IShirts__factory";
+export { ISportsLegends__factory } from "./ISportsLegends__factory";
